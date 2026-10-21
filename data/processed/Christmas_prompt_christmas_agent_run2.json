@@ -1,0 +1,270 @@
+{
+  "topic": "Christmas",
+  "prompt_id": "prompt_christmas",
+  "mode": "agent",
+  "summary": "Americans engage in various activities over the Christmas holiday, including opening presents, watching TV shows, and traveling, which provide a break from their usual routines. Some individuals express joy in receiving more gifts than expected, while others humorously note weight gain or leftover holiday decorations. The holiday is not entirely positive for everyone, as some people experience stress related to gifts or family interactions. Cultural diversity is evident, with some celebrating Ethiopian Christmas or encountering humorous holiday situations. Christmas is recognized as a public holiday in America, but individual experiences and feelings about the holiday vary widely.",
+  "issues": [],
+  "claims": [
+    {
+      "subject": "Americans",
+      "predicate": "engage in",
+      "object": "various activities over the Christmas holiday",
+      "scope": "general",
+      "claim_type": "factual",
+      "relevant_entities": [
+        "Americans",
+        "Christmas holiday"
+      ],
+      "text": "Americans engage in various activities over the Christmas holiday, including opening presents, watching TV shows, and traveling, which provide a break from their usual routines."
+    },
+    {
+      "subject": "Some individuals",
+      "predicate": "express",
+      "object": "joy in receiving more gifts than expected",
+      "scope": "some",
+      "claim_type": "attitude",
+      "relevant_entities": [
+        "individuals",
+        "gifts"
+      ],
+      "text": "Some individuals express joy in receiving more gifts than expected."
+    },
+    {
+      "subject": "others",
+      "predicate": "note",
+      "object": "weight gain or leftover holiday decorations humorously",
+      "scope": "some",
+      "claim_type": "attitude",
+      "relevant_entities": [
+        "individuals",
+        "weight gain",
+        "holiday decorations"
+      ],
+      "text": "while others humorously note weight gain or leftover holiday decorations."
+    },
+    {
+      "subject": "some people",
+      "predicate": "experience",
+      "object": "stress related to gifts or family interactions",
+      "scope": "some",
+      "claim_type": "observation",
+      "relevant_entities": [
+        "individuals",
+        "stress",
+        "gifts",
+        "family interactions"
+      ],
+      "text": "The holiday is not entirely positive for everyone, as some people experience stress related to gifts or family interactions."
+    },
+    {
+      "subject": "Cultural diversity",
+      "predicate": "is evident",
+      "object": "with some celebrating Ethiopian Christmas or encountering humorous holiday situations",
+      "scope": "general",
+      "claim_type": "factual",
+      "relevant_entities": [
+        "cultural diversity",
+        "Ethiopian Christmas"
+      ],
+      "text": "Cultural diversity is evident, with some celebrating Ethiopian Christmas or encountering humorous holiday situations."
+    },
+    {
+      "subject": "Christmas",
+      "predicate": "is recognized as",
+      "object": "a public holiday in America",
+      "scope": "universal",
+      "claim_type": "factual",
+      "relevant_entities": [
+        "Christmas",
+        "public holiday",
+        "America"
+      ],
+      "text": "Christmas is recognized as a public holiday in America."
+    },
+    {
+      "subject": "individual experiences and feelings about the holiday",
+      "predicate": "vary",
+      "object": "widely",
+      "scope": "universal",
+      "claim_type": "observation",
+      "relevant_entities": [
+        "individual experiences",
+        "feelings",
+        "holiday"
+      ],
+      "text": "but individual experiences and feelings about the holiday vary widely."
+    }
+  ],
+  "claim_evaluations": [
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Americans engage in various activities over the Christmas holiday'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Americans",
+        "predicate": "engage in",
+        "object": "various activities over the Christmas holiday",
+        "scope": "general",
+        "claim_type": "factual",
+        "relevant_entities": [
+          "Americans",
+          "Christmas holiday"
+        ],
+        "text": "Americans engage in various activities over the Christmas holiday, including opening presents, watching TV shows, and traveling, which provide a break from their usual routines."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Some individuals express joy in receiving more gifts than expected'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Some individuals",
+        "predicate": "express",
+        "object": "joy in receiving more gifts than expected",
+        "scope": "some",
+        "claim_type": "attitude",
+        "relevant_entities": [
+          "individuals",
+          "gifts"
+        ],
+        "text": "Some individuals express joy in receiving more gifts than expected."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'others note weight gain or leftover holiday decorations humorously'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "others",
+        "predicate": "note",
+        "object": "weight gain or leftover holiday decorations humorously",
+        "scope": "some",
+        "claim_type": "attitude",
+        "relevant_entities": [
+          "individuals",
+          "weight gain",
+          "holiday decorations"
+        ],
+        "text": "while others humorously note weight gain or leftover holiday decorations."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'some people experience stress related to gifts or family interactions'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "some people",
+        "predicate": "experience",
+        "object": "stress related to gifts or family interactions",
+        "scope": "some",
+        "claim_type": "observation",
+        "relevant_entities": [
+          "individuals",
+          "stress",
+          "gifts",
+          "family interactions"
+        ],
+        "text": "The holiday is not entirely positive for everyone, as some people experience stress related to gifts or family interactions."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Cultural diversity is evident with some celebrating Ethiopian Christmas or encountering humorous holiday situations'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Cultural diversity",
+        "predicate": "is evident",
+        "object": "with some celebrating Ethiopian Christmas or encountering humorous holiday situations",
+        "scope": "general",
+        "claim_type": "factual",
+        "relevant_entities": [
+          "cultural diversity",
+          "Ethiopian Christmas"
+        ],
+        "text": "Cultural diversity is evident, with some celebrating Ethiopian Christmas or encountering humorous holiday situations."
+      }
+    },
+    {
+      "status": "SUPPORTED",
+      "query_id": "recognizes_public_holiday",
+      "message": "The ontology records that america recognizesPublicHoliday christmas, which matches this claim.",
+      "claim": {
+        "subject": "Christmas",
+        "predicate": "is recognized as",
+        "object": "a public holiday in America",
+        "scope": "universal",
+        "claim_type": "factual",
+        "relevant_entities": [
+          "Christmas",
+          "public holiday",
+          "America"
+        ],
+        "text": "Christmas is recognized as a public holiday in America."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'individual experiences and feelings about the holiday vary widely'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "individual experiences and feelings about the holiday",
+        "predicate": "vary",
+        "object": "widely",
+        "scope": "universal",
+        "claim_type": "observation",
+        "relevant_entities": [
+          "individual experiences",
+          "feelings",
+          "holiday"
+        ],
+        "text": "but individual experiences and feelings about the holiday vary widely."
+      }
+    }
+  ],
+  "revision": 1,
+  "passed": true,
+  "trace": [
+    "summarize",
+    "extract_claims",
+    "query_ontology",
+    "evaluate",
+    "rewrite",
+    "extract_claims",
+    "query_ontology",
+    "evaluate"
+  ],
+  "elapsed_seconds": 10.661,
+  "query_results": [
+    {
+      "query_id": "q1_americans_not_celebrating_christmas",
+      "manchester": "Person and (isCitizenOf value America) and not (isParticipantOf value christmas)",
+      "status": "ok",
+      "detail": "sparql-closed-world",
+      "rows": []
+    },
+    {
+      "query_id": "q5_america_recognizes_christmas",
+      "manchester": "america and (recognizesPublicHoliday value christmas)",
+      "status": "ok",
+      "detail": "sparql-closed-world",
+      "rows": [
+        {
+          "country": "america",
+          "holiday": "christmas"
+        }
+      ]
+    },
+    {
+      "query_id": "recognizes_public_holiday",
+      "manchester": "recognizesPublicHoliday",
+      "status": "ok",
+      "detail": "sparql-closed-world",
+      "rows": [
+        {
+          "country": "america",
+          "holiday": "christmas"
+        }
+      ]
+    }
+  ]
+}

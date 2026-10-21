@@ -1,0 +1,52 @@
+import re
+
+from src.ontology.loader import load_ontology
+
+def run_sparql(query_id, sparql, manchester=""):
+    try:
+        onto = load_ontology()
+        rows = _run_sparql(onto, sparql)
+    except Exception as exc:
+        return {
+            "query_id": query_id,
+            "manchester": manchester,
+            "status": "error",
+            "detail": f"{type(exc).__name__}: {exc}",
+            "rows": [],
+        }
+    return {
+        "query_id": query_id,
+        "manchester": manchester,
+        "status": "ok",
+        "detail": "sparql-closed-world",
+        "rows": rows,
+    }
+
+def run_query(query):
+    return run_sparql(query.id, query.sparql, query.manchester)
+
+def _run_sparql(onto, sparql):
+    variables = _select_variables(sparql)
+    rows = []
+    for binding in onto.world.sparql(sparql, error_on_undefined_entities=False):
+        values = binding if isinstance(binding, (list, tuple)) else [binding]
+        labels = [_label(value) for value in values]
+        if len(variables) == len(labels):
+            rows.append(dict(zip(variables, labels)))
+        else:
+            rows.append({f"col_{index}": label for index, label in enumerate(labels)})
+    return rows
+
+def _select_variables(sparql):
+    match = re.search(r"SELECT\s+(.*?)\s+WHERE", sparql, flags=re.IGNORECASE | re.DOTALL)
+    if not match:
+        return []
+    return [name[1:] for name in re.findall(r"\?\w+", match.group(1))]
+
+def _label(value):
+    if value is None:
+        return ""
+    name = getattr(value, "name", None)
+    if name:
+        return str(name)
+    return str(value)

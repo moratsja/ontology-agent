@@ -1,0 +1,244 @@
+{
+  "topic": "Christmas",
+  "prompt_id": "prompt_christmas",
+  "mode": "agent",
+  "summary": "Christmas in the United States is recognized as a public holiday, providing a break from regular routines, which allows for relaxation and indulgence. Many people enjoy the festive spirit of the season, participating in activities like decorating Christmas trees, wearing themed outfits, and exchanging presents. Posts reflect a variety of experiences, including gratitude for gifts, humor about holiday indulgence, and emotional attachment to decorations. Some individuals express enjoyment of the break, while others humorously acknowledge gaining weight or spending more time on leisure activities. Christmas is also a time for social connection and expressing love and appreciation for friends and family, strengthening bonds and creating lasting memories.",
+  "issues": [],
+  "claims": [
+    {
+      "subject": "Christmas",
+      "predicate": "is recognized as",
+      "object": "a public holiday in the United States",
+      "scope": "general",
+      "claim_type": "factual",
+      "relevant_entities": [
+        "Christmas",
+        "United States"
+      ],
+      "text": "Christmas in the United States is recognized as a public holiday, providing a break from regular routines, which allows for relaxation and indulgence."
+    },
+    {
+      "subject": "Many people",
+      "predicate": "enjoy",
+      "object": "the festive spirit of the season",
+      "scope": "many",
+      "claim_type": "attitude",
+      "relevant_entities": [],
+      "text": "Many people enjoy the festive spirit of the season, participating in activities like decorating Christmas trees, wearing themed outfits, and exchanging presents."
+    },
+    {
+      "subject": "Posts",
+      "predicate": "reflect",
+      "object": "a variety of experiences",
+      "scope": "general",
+      "claim_type": "observation",
+      "relevant_entities": [],
+      "text": "Posts reflect a variety of experiences, including gratitude for gifts, humor about holiday indulgence, and emotional attachment to decorations."
+    },
+    {
+      "subject": "Some individuals",
+      "predicate": "express",
+      "object": "enjoyment of the break",
+      "scope": "some",
+      "claim_type": "attitude",
+      "relevant_entities": [],
+      "text": "Some individuals express enjoyment of the break, while others humorously acknowledge gaining weight or spending more time on leisure activities."
+    },
+    {
+      "subject": "Christmas",
+      "predicate": "is",
+      "object": "a time for social connection and expressing love and appreciation for friends and family",
+      "scope": "general",
+      "claim_type": "factual",
+      "relevant_entities": [
+        "Christmas"
+      ],
+      "text": "Christmas is also a time for social connection and expressing love and appreciation for friends and family, strengthening bonds and creating lasting memories."
+    }
+  ],
+  "mapped_claims": [
+    {
+      "claim_index": 0,
+      "ontology_relevant": true,
+      "subject": {
+        "text": "Christmas",
+        "ontology_class": "PublicHolidayEvent",
+        "ontology_entity": "christmas"
+      },
+      "predicate": {
+        "text": "is recognized as",
+        "ontology_property": "isRecognisedBy"
+      },
+      "object": {
+        "text": "the United States",
+        "ontology_class": "Country",
+        "ontology_entity": "america"
+      }
+    },
+    {
+      "claim_index": 1,
+      "ontology_relevant": false,
+      "subject": {
+        "text": "Many people",
+        "ontology_class": "",
+        "ontology_entity": ""
+      },
+      "predicate": {
+        "text": "enjoy",
+        "ontology_property": ""
+      },
+      "object": {
+        "text": "the festive spirit of the season",
+        "ontology_class": "",
+        "ontology_entity": ""
+      }
+    },
+    {
+      "claim_index": 2,
+      "ontology_relevant": false,
+      "subject": {
+        "text": "Posts",
+        "ontology_class": "",
+        "ontology_entity": ""
+      },
+      "predicate": {
+        "text": "reflect",
+        "ontology_property": ""
+      },
+      "object": {
+        "text": "a variety of experiences",
+        "ontology_class": "",
+        "ontology_entity": ""
+      }
+    },
+    {
+      "claim_index": 3,
+      "ontology_relevant": false,
+      "subject": {
+        "text": "Some individuals",
+        "ontology_class": "",
+        "ontology_entity": ""
+      },
+      "predicate": {
+        "text": "express",
+        "ontology_property": ""
+      },
+      "object": {
+        "text": "enjoyment of the break",
+        "ontology_class": "",
+        "ontology_entity": ""
+      }
+    },
+    {
+      "claim_index": 4,
+      "ontology_relevant": false,
+      "subject": {
+        "text": "Christmas",
+        "ontology_class": "",
+        "ontology_entity": ""
+      },
+      "predicate": {
+        "text": "is",
+        "ontology_property": ""
+      },
+      "object": {
+        "text": "a time for social connection and expressing love and appreciation for friends and family",
+        "ontology_class": "",
+        "ontology_entity": ""
+      }
+    }
+  ],
+  "claim_evaluations": [
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The holiday-recognition query returned no rows, so the claim is not established.",
+      "claim": {
+        "subject": "Christmas",
+        "predicate": "is recognized as",
+        "object": "a public holiday in the United States",
+        "scope": "general",
+        "claim_type": "factual",
+        "relevant_entities": [
+          "Christmas",
+          "United States"
+        ],
+        "text": "Christmas in the United States is recognized as a public holiday, providing a break from regular routines, which allows for relaxation and indulgence."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Many people enjoy the festive spirit of the season'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Many people",
+        "predicate": "enjoy",
+        "object": "the festive spirit of the season",
+        "scope": "many",
+        "claim_type": "attitude",
+        "relevant_entities": [],
+        "text": "Many people enjoy the festive spirit of the season, participating in activities like decorating Christmas trees, wearing themed outfits, and exchanging presents."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Posts reflect a variety of experiences'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Posts",
+        "predicate": "reflect",
+        "object": "a variety of experiences",
+        "scope": "general",
+        "claim_type": "observation",
+        "relevant_entities": [],
+        "text": "Posts reflect a variety of experiences, including gratitude for gifts, humor about holiday indulgence, and emotional attachment to decorations."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Some individuals express enjoyment of the break'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Some individuals",
+        "predicate": "express",
+        "object": "enjoyment of the break",
+        "scope": "some",
+        "claim_type": "attitude",
+        "relevant_entities": [],
+        "text": "Some individuals express enjoyment of the break, while others humorously acknowledge gaining weight or spending more time on leisure activities."
+      }
+    },
+    {
+      "status": "NOT_VERIFIABLE",
+      "query_id": "",
+      "message": "The ontology has no relation for 'Christmas is a time for social connection and expressing love and appreciation for friends and family'. An empty lookup does not prove the claim false.",
+      "claim": {
+        "subject": "Christmas",
+        "predicate": "is",
+        "object": "a time for social connection and expressing love and appreciation for friends and family",
+        "scope": "general",
+        "claim_type": "factual",
+        "relevant_entities": [
+          "Christmas"
+        ],
+        "text": "Christmas is also a time for social connection and expressing love and appreciation for friends and family, strengthening bonds and creating lasting memories."
+      }
+    }
+  ],
+  "revision": 1,
+  "passed": true,
+  "trace": [
+    "summarize",
+    "extract_claims",
+    "ontology_mapping",
+    "select_query",
+    "evaluate",
+    "rewrite",
+    "extract_claims",
+    "ontology_mapping",
+    "select_query",
+    "evaluate"
+  ],
+  "elapsed_seconds": 20.868,
+  "query_results": []
+}

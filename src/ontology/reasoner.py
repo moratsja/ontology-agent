@@ -1,5 +1,4 @@
 # Owlready2's sync_reasoner runs HermiT, so java has to be installed.
-
 import shutil
 from pathlib import Path
 
@@ -28,7 +27,7 @@ def claim_shape(mapping):
     subject = (mapping.get("subject") or {}).get("ontology_entity") or ""
     prop = (mapping.get("predicate") or {}).get("ontology_property") or ""
     obj = mapping.get("object") or {}
-    object_entity = obj.get("ontology_entity") or ""
+    object_entity = obj.get("ontology_entity") or S""
     object_class = obj.get("ontology_class") or ""
     if subject and prop and object_entity:
         return "relation"
@@ -64,6 +63,7 @@ def _check_type(individual_name, class_name):
     ok, problem = _run(world)
     if problem or not ok:
         return _result("NOT_VERIFIABLE", "type", problem or _BEFORE)
+
     world, onto = _load_world()
     with onto:
         getattr(onto, individual_name).is_a.append(Not(getattr(onto, class_name)))
@@ -72,6 +72,7 @@ def _check_type(individual_name, class_name):
         return _result("NOT_VERIFIABLE", "type", problem)
     if entailed:
         return _result("SUPPORTED", "type", f"The reasoner finds that {individual_name} type {class_name} follows.")
+
     world, onto = _load_world()
     with onto:
         getattr(onto, individual_name).is_a.append(getattr(onto, class_name))
@@ -103,6 +104,7 @@ def _check_relation(subject_name, prop_name, object_name):
         return _result("NOT_VERIFIABLE", "relation", problem or _BEFORE)
     if getattr(onto, object_name) in list(getattr(getattr(onto, subject_name), prop_name)):
         return _result("SUPPORTED", "relation", f"The reasoner finds that {subject_name} {prop_name} {object_name} holds.")
+
     world, onto = _load_world()
     with onto:
         getattr(getattr(onto, subject_name), prop_name).append(getattr(onto, object_name))

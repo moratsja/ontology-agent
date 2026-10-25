@@ -14,6 +14,8 @@ dependencies = [
     "rdflib>=7.0.0",
     "pydantic>=2",
     "python-dotenv>=1.0.0",
+    "deepeval>=4.3.1",
+    "rouge-score>=0.1.2",
 ]
 
 [tool.setuptools]

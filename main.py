@@ -5,6 +5,8 @@ from pathlib import Path
 
 from src.config import DATA_PROCESSED, ONTOLOGY_PATH, SUMMARY_SENTENCES, USER_PROMPTS, load_documents
 from src.graph.graph import build_baseline_graph, build_graph, initial_state
+from src.evaluation import AgentEvaluator
+from src.llm.model import get_and_reset_session_tokens
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -20,6 +22,7 @@ def parse_args():
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("--baseline", action="store_true", help="One-shot LLM, no ontology")
     parser.add_argument("--save", action="store_true", help="Write each run under data/processed")
+    parser.add_argument("--evaluate", action="store_true", help="Run DeepEval and ROUGE metrics immediately after execution")
     return parser.parse_args()
 
 def main():
@@ -33,6 +36,7 @@ def main():
     graph = build_baseline_graph() if args.baseline else build_graph()
     if mode == "agent" and not ONTOLOGY_PATH.is_file():
         print(f"Ontology file missing: {ONTOLOGY_PATH}")
+    evaluator = AgentEvaluator() if args.evaluate else None
     for run_index in range(1, args.runs + 1):
         state = initial_state(
             documents=documents,
@@ -45,9 +49,30 @@ def main():
         started = time.perf_counter()
         result = graph.invoke(state)
         elapsed = time.perf_counter() - started
+        
+        # Evaluate the run across 4 metrics if requested
+        eval_results = {}
+        if args.evaluate:
+            print(f"\n[Evaluating run {run_index} across 4 metrics...] ")
+            
+            eval_results["equal_coverage"] = evaluator.evaluate_equal_coverage(documents, result["summary"])
+            
+            source_texts = [doc.get("text", "") for doc in documents if isinstance(doc, dict)]
+            eval_results["quality"] = evaluator.evaluate_summary_quality(result["summary"], source_texts)
+            
+            eval_results["rouge2"] = evaluator.evaluate_rouge2(result["summary"], topic)
+            
+            session_tokens = get_and_reset_session_tokens()
+            result["elapsed_seconds"] = elapsed
+            eval_results["cost"] = evaluator.evaluate_cost(result, session_tokens)
+            
+            print(f"  [Metric 1 - Equal Coverage] Score: {eval_results['equal_coverage']:.4f}")
+            print(f"  [Metric 2 - Summary Quality] Score: {eval_results['quality']['score']:.4f} (Alignment: {eval_results['quality']['alignment_score']}, Coverage: {eval_results['quality']['coverage_score']})")
+            print(f"  [Metric 3 - ROUGE-2] Score: {eval_results['rouge2']:.4f}")
+            print(f"  [Metric 4 - Cost] Time: {eval_results['cost']['elapsed_seconds']:.2f}s | Total Tokens: {eval_results['cost']['total_tokens']} (In: {eval_results['cost']['input_tokens']}, Out: {eval_results['cost']['output_tokens']})")
         _print_run(run_index, result, elapsed)
         if args.save:
-            _save_run(args, run_index, result, elapsed)
+            _save_run(args, run_index, result, elapsed, eval_results)
 
 def _print_run(run_index, result, elapsed):
     print(f"\n=== run {run_index} ({result['mode']}) {elapsed:.2f}s ===")
@@ -72,7 +97,7 @@ def _print_run(run_index, result, elapsed):
         for item in errors:
             print(f"query error {item['query_id']}: {item['detail']}")
 
-def _save_run(args, run_index, result, elapsed):
+def _save_run(args, run_index, result, elapsed, eval_results=None):
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
     mode = "baseline" if args.baseline else "agent"
     destination = DATA_PROCESSED / f"{result['topic']}_{args.prompt}_{mode}_run{run_index}.json"
@@ -91,6 +116,8 @@ def _save_run(args, run_index, result, elapsed):
         "elapsed_seconds": round(elapsed, 3),
         "query_results": result["query_results"],
     }
+    if eval_results:
+        payload["evaluation"] = eval_results
     destination.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"saved {destination}")
 

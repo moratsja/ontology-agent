@@ -14,6 +14,7 @@ class OntologyQuery:
 def _prefix():
     return f"PREFIX : <{ONTOLOGY_IRI}>\n"
 
+
 QUERIES = (
     OntologyQuery(
         id="q1",
@@ -35,12 +36,12 @@ QUERIES = (
         sparql=_prefix()
         + """SELECT ?country ?holiday WHERE {
   ?country :recognizesPublicHoliday ?holiday .
-
 }""",
         topics=("Christmas",),
         triggers=("christmas", "america"),
     ),
 )
+
 
 def get_query(query_id):
     for query in QUERIES:
@@ -48,6 +49,7 @@ def get_query(query_id):
             return query
     known = ", ".join(query.id for query in QUERIES)
     raise KeyError(f"Unknown query {query_id!r}. Known queries: {known}")
+
 
 def select_queries(topic, text):
     blob = f"{topic}\n{text}".lower()

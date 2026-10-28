@@ -14,7 +14,7 @@ class AgentEvaluator:
         if not documents:
             return 0.0
 
-        groups = {"White", "Hisp", "AA"}
+        groups = {"White", "Hisp", "Black"}
         group_docs = {g: [] for g in groups}
         
         for doc in documents:

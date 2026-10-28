@@ -23,12 +23,35 @@ def evaluate(state):
         for verdict in verdicts
         if verdict["status"] == "CONTRADICTED"
     ]
+    passed = bool(verdicts) and all(_is_supported(verdict) for verdict in verdicts)
     return {
         "claim_evaluations": verdicts,
         "issues": issues,
-        "passed": bool(verdicts) and all(_is_supported(verdict) for verdict in verdicts),
+        "passed": passed,
+        "stop_reason": loop_stop_reason(state, issues, passed),
+        "evaluations": [revision_snapshot(state["revision"], verdicts, issues, passed)],
         "trace": ["evaluate"],
     }
+
+def revision_snapshot(revision, claims, issues, passed):
+    return {
+        "revision": revision,
+        "passed": passed,
+        "issues": issues,
+        "claims": claims,
+    }
+
+def loop_stop_reason(state, issues, passed, no_claims=False):
+    if no_claims:
+        return "no_claims"
+    if passed:
+        return "passed"
+    contradicted = any(issue.get("kind") == "inconsistency" for issue in issues)
+    if not contradicted:
+        return "no_contradiction"
+    if state["revision"] >= state["max_revisions"]:
+        return "rewrite_limit"
+    return ""
 
 def _is_supported(verdict):
     if verdict["status"] != "SUPPORTED":

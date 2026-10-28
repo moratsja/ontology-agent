@@ -2,8 +2,70 @@
   "topic": "Christmas",
   "prompt_id": "prompt_christmas",
   "mode": "agent",
-  "summary": "Americans love to celebrate Christmas for various reasons, including the joy of giving and receiving gifts, as seen in the excitement over presents and gratitude for unexpected gifts. The holiday season is also a time for family gatherings and creating cherished memories, as people reminisce about past celebrations and look forward to spending time with loved ones. Christmas decorations and traditions, such as putting up and taking down Christmas trees, play a significant role in the festive atmosphere, contributing to the emotional attachment many feel towards the holiday. The anticipation of Christmas is evident in the countdowns and excitement for the holiday season, highlighting its importance in American culture. Additionally, Christmas serves as a break from routine, offering a chance to relax, enjoy special meals, and partake in holiday-themed entertainment, making it a beloved time of year for many.",
+  "summary": "Americans love to celebrate Christmas for various reasons, including the joy of giving and receiving gifts, as seen in the excitement over presents and gratitude for unexpected gifts. The holiday season is also a time for family gatherings and creating cherished memories, as people reminisce about past celebrations and look forward to spending time with loved ones. Christmas decorations, such as trees and lights, play a significant role in the festive atmosphere, with many expressing attachment to these symbols of the holiday. The anticipation and excitement of Christmas are evident in the countdown to the holiday and the eagerness to experience a \"white Christmas\" or travel to see friends. Additionally, Christmas is a time for relaxation and enjoyment, with people taking breaks from work or school and indulging in holiday traditions and entertainment.",
+  "summaries": [
+    "Americans love to celebrate Christmas for various reasons, including the joy of giving and receiving gifts, as seen in the excitement over presents and gratitude for unexpected gifts. The holiday season is also a time for family gatherings and creating cherished memories, as people reminisce about past celebrations and look forward to spending time with loved ones. Christmas decorations, such as trees and lights, play a significant role in the festive atmosphere, with many expressing attachment to these symbols of the holiday. The anticipation and excitement of Christmas are evident in the countdown to the holiday and the eagerness to experience a \"white Christmas\" or travel to see friends. Additionally, Christmas is a time for relaxation and enjoyment, with people taking breaks from work or school and indulging in holiday traditions and entertainment."
+  ],
   "issues": [],
+  "evaluations": [
+    {
+      "revision": 0,
+      "passed": false,
+      "issues": [],
+      "claims": [
+        {
+          "status": "NOT_VERIFIABLE",
+          "query_id": "",
+          "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
+          "claim": {
+            "subject": "Americans",
+            "predicate": "love",
+            "object": "celebrate Christmas",
+            "scope": "general",
+            "claim_type": "attitude",
+            "relevant_entities": [
+              "Americans",
+              "Christmas"
+            ],
+            "text": "Americans love to celebrate Christmas for various reasons, including the joy of giving and receiving gifts, as seen in the excitement over presents and gratitude for unexpected gifts."
+          }
+        },
+        {
+          "status": "NOT_VERIFIABLE",
+          "query_id": "",
+          "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
+          "claim": {
+            "subject": "Christmas decorations",
+            "predicate": "play",
+            "object": "a significant role in the festive atmosphere",
+            "scope": "general",
+            "claim_type": "factual",
+            "relevant_entities": [
+              "Christmas decorations"
+            ],
+            "text": "Christmas decorations, such as trees and lights, play a significant role in the festive atmosphere, with many expressing attachment to these symbols of the holiday."
+          }
+        },
+        {
+          "status": "NOT_VERIFIABLE",
+          "query_id": "",
+          "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
+          "claim": {
+            "subject": "Christmas",
+            "predicate": "is",
+            "object": "a time for relaxation and enjoyment",
+            "scope": "general",
+            "claim_type": "factual",
+            "relevant_entities": [
+              "Christmas"
+            ],
+            "text": "Additionally, Christmas is a time for relaxation and enjoyment, with people taking breaks from work or school and indulging in holiday traditions and entertainment."
+          }
+        }
+      ]
+    }
+  ],
+  "stop_reason": "no_contradiction",
   "claims": [
     {
       "subject": "Americans",
@@ -18,49 +80,26 @@
       "text": "Americans love to celebrate Christmas for various reasons, including the joy of giving and receiving gifts, as seen in the excitement over presents and gratitude for unexpected gifts."
     },
     {
-      "subject": "Christmas",
-      "predicate": "is",
-      "object": "a time for family gatherings and creating cherished memories",
-      "scope": "universal",
-      "claim_type": "factual",
-      "relevant_entities": [
-        "Christmas"
-      ],
-      "text": "The holiday season is also a time for family gatherings and creating cherished memories, as people reminisce about past celebrations and look forward to spending time with loved ones."
-    },
-    {
-      "subject": "Christmas decorations and traditions",
+      "subject": "Christmas decorations",
       "predicate": "play",
       "object": "a significant role in the festive atmosphere",
-      "scope": "universal",
+      "scope": "general",
       "claim_type": "factual",
       "relevant_entities": [
-        "Christmas decorations",
-        "traditions"
+        "Christmas decorations"
       ],
-      "text": "Christmas decorations and traditions, such as putting up and taking down Christmas trees, play a significant role in the festive atmosphere, contributing to the emotional attachment many feel towards the holiday."
-    },
-    {
-      "subject": "The anticipation of Christmas",
-      "predicate": "is",
-      "object": "evident in the countdowns and excitement for the holiday season",
-      "scope": "universal",
-      "claim_type": "observation",
-      "relevant_entities": [
-        "Christmas"
-      ],
-      "text": "The anticipation of Christmas is evident in the countdowns and excitement for the holiday season, highlighting its importance in American culture."
+      "text": "Christmas decorations, such as trees and lights, play a significant role in the festive atmosphere, with many expressing attachment to these symbols of the holiday."
     },
     {
       "subject": "Christmas",
-      "predicate": "serves",
-      "object": "as a break from routine",
-      "scope": "universal",
+      "predicate": "is",
+      "object": "a time for relaxation and enjoyment",
+      "scope": "general",
       "claim_type": "factual",
       "relevant_entities": [
         "Christmas"
       ],
-      "text": "Additionally, Christmas serves as a break from routine, offering a chance to relax, enjoy special meals, and partake in holiday-themed entertainment, making it a beloved time of year for many."
+      "text": "Additionally, Christmas is a time for relaxation and enjoyment, with people taking breaks from work or school and indulging in holiday traditions and entertainment."
     }
   ],
   "mapped_claims": [
@@ -117,42 +156,6 @@
         "ontology_class": "",
         "ontology_entity": ""
       }
-    },
-    {
-      "claim_index": 3,
-      "ontology_relevant": false,
-      "subject": {
-        "text": "",
-        "ontology_class": "",
-        "ontology_entity": ""
-      },
-      "predicate": {
-        "text": "",
-        "ontology_property": ""
-      },
-      "object": {
-        "text": "",
-        "ontology_class": "",
-        "ontology_entity": ""
-      }
-    },
-    {
-      "claim_index": 4,
-      "ontology_relevant": false,
-      "subject": {
-        "text": "",
-        "ontology_class": "",
-        "ontology_entity": ""
-      },
-      "predicate": {
-        "text": "",
-        "ontology_property": ""
-      },
-      "object": {
-        "text": "",
-        "ontology_class": "",
-        "ontology_entity": ""
-      }
     }
   ],
   "claim_evaluations": [
@@ -178,48 +181,15 @@
       "query_id": "",
       "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
       "claim": {
-        "subject": "Christmas",
-        "predicate": "is",
-        "object": "a time for family gatherings and creating cherished memories",
-        "scope": "universal",
-        "claim_type": "factual",
-        "relevant_entities": [
-          "Christmas"
-        ],
-        "text": "The holiday season is also a time for family gatherings and creating cherished memories, as people reminisce about past celebrations and look forward to spending time with loved ones."
-      }
-    },
-    {
-      "status": "NOT_VERIFIABLE",
-      "query_id": "",
-      "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
-      "claim": {
-        "subject": "Christmas decorations and traditions",
+        "subject": "Christmas decorations",
         "predicate": "play",
         "object": "a significant role in the festive atmosphere",
-        "scope": "universal",
+        "scope": "general",
         "claim_type": "factual",
         "relevant_entities": [
-          "Christmas decorations",
-          "traditions"
+          "Christmas decorations"
         ],
-        "text": "Christmas decorations and traditions, such as putting up and taking down Christmas trees, play a significant role in the festive atmosphere, contributing to the emotional attachment many feel towards the holiday."
-      }
-    },
-    {
-      "status": "NOT_VERIFIABLE",
-      "query_id": "",
-      "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
-      "claim": {
-        "subject": "The anticipation of Christmas",
-        "predicate": "is",
-        "object": "evident in the countdowns and excitement for the holiday season",
-        "scope": "universal",
-        "claim_type": "observation",
-        "relevant_entities": [
-          "Christmas"
-        ],
-        "text": "The anticipation of Christmas is evident in the countdowns and excitement for the holiday season, highlighting its importance in American culture."
+        "text": "Christmas decorations, such as trees and lights, play a significant role in the festive atmosphere, with many expressing attachment to these symbols of the holiday."
       }
     },
     {
@@ -228,14 +198,14 @@
       "message": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
       "claim": {
         "subject": "Christmas",
-        "predicate": "serves",
-        "object": "as a break from routine",
-        "scope": "universal",
+        "predicate": "is",
+        "object": "a time for relaxation and enjoyment",
+        "scope": "general",
         "claim_type": "factual",
         "relevant_entities": [
           "Christmas"
         ],
-        "text": "Additionally, Christmas serves as a break from routine, offering a chance to relax, enjoy special meals, and partake in holiday-themed entertainment, making it a beloved time of year for many."
+        "text": "Additionally, Christmas is a time for relaxation and enjoyment, with people taking breaks from work or school and indulging in holiday traditions and entertainment."
       }
     }
   ],
@@ -248,22 +218,8 @@
     "select_query",
     "evaluate"
   ],
-  "elapsed_seconds": 8.753,
+  "elapsed_seconds": 7.159,
   "query_results": [
-    {
-      "query_id": "",
-      "manchester": "",
-      "status": "ok",
-      "detail": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
-      "rows": []
-    },
-    {
-      "query_id": "",
-      "manchester": "",
-      "status": "ok",
-      "detail": "This claim is not a class membership or an object property between individuals. It is not verifiable.",
-      "rows": []
-    },
     {
       "query_id": "",
       "manchester": "",

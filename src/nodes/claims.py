@@ -3,6 +3,7 @@ import re
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+from src.nodes.evaluate import loop_stop_reason, revision_snapshot
 from src.nodes.extract import split_sentences
 
 SCOPES = {"individual", "some", "many", "most", "general", "universal", "limited"}
@@ -92,6 +93,8 @@ def extract_claims(state):
         update["passed"] = False
         update["issues"] = []
         update["claim_evaluations"] = []
+        update["stop_reason"] = loop_stop_reason(state, [], False, no_claims=True)
+        update["evaluations"] = [revision_snapshot(state["revision"], [], [], False)]
     return update
 
 def _claims_for_summary(summary):

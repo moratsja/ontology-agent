@@ -1,4 +1,4 @@
-# trace is appended. Other fields are replaced.
+# trace, summaries, and evaluations are appended. Other fields are replaced.
 
 import operator
 from typing import Annotated, Literal, TypedDict
@@ -21,6 +21,12 @@ class ClaimEvaluation(TypedDict):
     message: str
     claim: dict
 
+class RevisionEvaluation(TypedDict):
+    revision: int
+    passed: bool
+    issues: list[Issue]
+    claims: list[ClaimEvaluation]
+
 class AgentState(TypedDict):
     topic: str
     documents: list[dict[str, str]]
@@ -32,11 +38,14 @@ class AgentState(TypedDict):
     claims: list[dict]
     mapped_claims: list[dict]
     summary: str
+    summaries: Annotated[list[str], operator.add]
     query_results: list[QueryResult]
     query_results_by_claim: list[dict]
     claim_evaluations: list[ClaimEvaluation]
     issues: list[Issue]
+    evaluations: Annotated[list[RevisionEvaluation], operator.add]
     revision: int
     max_revisions: int
     passed: bool
+    stop_reason: str
     trace: Annotated[list[str], operator.add]

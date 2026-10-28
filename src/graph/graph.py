@@ -63,13 +63,16 @@ def initial_state(
         "claims": [],
         "mapped_claims": [],
         "summary": "",
+        "summaries": [],
         "query_results": [],
         "query_results_by_claim": [],
         "claim_evaluations": [],
         "issues": [],
+        "evaluations": [],
         "revision": 0,
         "max_revisions": max_revisions,
         "passed": False,
+        "stop_reason": "",
         "trace": [],
     }
 

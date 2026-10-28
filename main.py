@@ -78,7 +78,7 @@ def _print_run(run_index, result, elapsed):
     print(f"\n=== run {run_index} ({result['mode']}) {elapsed:.2f}s ===")
     print(result["summary"])
     if result["mode"] == "agent":
-        print(f"passed: {result['passed']}  revisions: {result['revision']}")
+        print(f"passed: {result['passed']}  revisions: {result['revision']}  stop: {result.get('stop_reason', '')}")
         for verdict in result.get("claim_evaluations") or []:
             claim = verdict["claim"]
             print(
@@ -89,10 +89,8 @@ def _print_run(run_index, result, elapsed):
             print("issues:")
             for issue in result["issues"]:
                 print(f"- [{issue['kind']}] {issue['message']}")
-        if result["revision"] >= result["max_revisions"]:
-            kinds = {issue["kind"] for issue in result["issues"]}
-            if "inconsistency" in kinds:
-                print("Still contradicted after the rewrite.")
+        if result.get("stop_reason") == "rewrite_limit":
+            print("Stopped at the rewrite limit with a contradicted claim still in the summary.")
         errors = [item for item in result["query_results"] if item["status"] == "error"]
         for item in errors:
             print(f"query error {item['query_id']}: {item['detail']}")
@@ -106,7 +104,10 @@ def _save_run(args, run_index, result, elapsed, eval_results=None):
         "prompt_id": result["prompt_id"],
         "mode": result["mode"],
         "summary": result["summary"],
+        "summaries": result.get("summaries") or [],
         "issues": result["issues"],
+        "evaluations": result.get("evaluations") or [],
+        "stop_reason": result.get("stop_reason") or "",
         "claims": result.get("claims") or [],
         "mapped_claims": result.get("mapped_claims") or [],
         "claim_evaluations": result.get("claim_evaluations") or [],

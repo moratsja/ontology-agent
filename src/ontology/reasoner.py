@@ -27,7 +27,7 @@ def claim_shape(mapping):
     subject = (mapping.get("subject") or {}).get("ontology_entity") or ""
     prop = (mapping.get("predicate") or {}).get("ontology_property") or ""
     obj = mapping.get("object") or {}
-    object_entity = obj.get("ontology_entity") or S""
+    object_entity = obj.get("ontology_entity") or ""
     object_class = obj.get("ontology_class") or ""
     if subject and prop and object_entity:
         return "relation"

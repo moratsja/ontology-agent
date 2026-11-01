@@ -13,7 +13,6 @@ models/
 
 # local evaluation output
 results/
-data/processed/*.json
 
 # packaging
 build/

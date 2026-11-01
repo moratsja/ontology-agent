@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 ONTOLOGY_PATH = ROOT / "ontology" / "ontology.rdf"
-INPUTS = ROOT / "data" / "raw" / "divsumm" / "input_docs"
+INPUTS = ROOT / "data" / "divsumm" / "input_docs"
 RESULTS = ROOT / "results"
 GROUPS = ("White", "Hisp", "AA")
 EVAL_RUNS = 3

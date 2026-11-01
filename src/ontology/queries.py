@@ -1,62 +1,83 @@
 from dataclasses import dataclass
-
-from src.config import ONTOLOGY_IRI
+from typing import Any, Callable
 
 @dataclass(frozen=True)
 class OntologyQuery:
     id: str
     title: str
     manchester: str
-    sparql: str
     topics: tuple[str, ...]
-    triggers: tuple[str, ...]
+    build: Callable[[Any], Any]
 
-def _prefix():
-    return f"PREFIX : <{ONTOLOGY_IRI}>\n"
+def _events_hosted_in_europe(onto):
+    # Event and (isHostedBy some (isLocatedIn value europe))
+    return onto.Event & onto.isHostedBy.some(onto.isLocatedIn.value(onto.europe))
 
+def _events_with_traditions(onto):
+    # Event and (hasTradition some Tradition)
+    return onto.Event & onto.hasTradition.some(onto.Tradition)
+
+def _religious_events_hosted_in_ethiopia(onto):
+    # ReligiousEvent and (isHostedBy value ethiopia)
+    return onto.ReligiousEvent & onto.isHostedBy.value(onto.ethiopia)
+
+def _netflix_content(onto):
+    # MediaContent and (isOfferedBy value netflix)
+    return onto.MediaContent & onto.isOfferedBy.value(onto.netflix)
+
+def _netflix_romance_content(onto):
+    # MediaContent and (isOfferedBy value netflix) and (hasGenre value romance)
+    return onto.MediaContent & onto.isOfferedBy.value(onto.netflix) & onto.hasGenre.value(onto.romance)
+
+def _capital_cities(onto):
+    # CapitalCity and (isCapitalOf some Country)
+    return onto.CapitalCity & onto.isCapitalOf.some(onto.Country)
 
 QUERIES = (
     OntologyQuery(
         id="q1",
-        title="Americans who do not celebrate Christmas",
-        manchester="Person and (isCitizenOf value America) and not (isParticipantOf value christmas)",
-        sparql=_prefix()
-        + """SELECT ?person WHERE {
-        ?person a :Person ;
-                :isCitizenOf :America .
-        FILTER NOT EXISTS { :christmas :hasParticipant ?person . }
-        }""",
-        topics=("Christmas",),
-        triggers=("christmas", "american"),
+        title="Events hosted in Europe",
+        manchester="Event and (isHostedBy some (isLocatedIn value europe))",
+        topics=("Paris", "Christmas"),
+        build=_events_hosted_in_europe,
     ),
     OntologyQuery(
-        id="q2",
-        title="Public holiday recognized by America",
-        manchester="america and (recognizesPublicHoliday value christmas)",
-        sparql=_prefix()
-        + """SELECT ?country ?holiday WHERE {
-  ?country :recognizesPublicHoliday ?holiday .
-}""",
+        id="c1",
+        title="Events with a tradition",
+        manchester="Event and (hasTradition some Tradition)",
         topics=("Christmas",),
-        triggers=("christmas", "america"),
+        build=_events_with_traditions,
+    ),
+    OntologyQuery(
+        id="c2",
+        title="Religious events hosted in Ethiopia",
+        manchester="ReligiousEvent and (isHostedBy value ethiopia)",
+        topics=("Christmas",),
+        build=_religious_events_hosted_in_ethiopia,
+    ),
+    OntologyQuery(
+        id="n1",
+        title="Content offered by Netflix",
+        manchester="MediaContent and (isOfferedBy value netflix)",
+        topics=("Netflix",),
+        build=_netflix_content,
+    ),
+    OntologyQuery(
+        id="n2",
+        title="Netflix content with genre romance",
+        manchester="MediaContent and (isOfferedBy value netflix) and (hasGenre value romance)",
+        topics=("Netflix",),
+        build=_netflix_romance_content,
+    ),
+    OntologyQuery(
+        id="p1",
+        title="Capital cities",
+        manchester="CapitalCity and (isCapitalOf some Country)",
+        topics=("Paris",),
+        build=_capital_cities,
     ),
 )
 
-
-def get_query(query_id):
-    for query in QUERIES:
-        if query.id == query_id:
-            return query
-    known = ", ".join(query.id for query in QUERIES)
-    raise KeyError(f"Unknown query {query_id!r}. Known queries: {known}")
-
-
-def select_queries(topic, text):
-    blob = f"{topic}\n{text}".lower()
-    selected = []
-    for query in QUERIES:
-        topic_match = topic.lower() in {name.lower() for name in query.topics}
-        trigger_match = any(trigger in blob for trigger in query.triggers)
-        if topic_match or trigger_match:
-            selected.append(query)
-    return selected
+def queries_for(topic):
+    wanted = topic.lower()
+    return [query for query in QUERIES if wanted in {name.lower() for name in query.topics}]

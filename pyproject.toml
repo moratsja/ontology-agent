@@ -3,7 +3,7 @@ requires = ["setuptools>=69"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "infoiag-agent"
+name = "ontology-agent"
 version = "0.1.0"
 requires-python = ">=3.10,<3.15"
 dependencies = [
@@ -14,8 +14,11 @@ dependencies = [
     "rdflib>=7.0.0",
     "pydantic>=2",
     "python-dotenv>=1.0.0",
-    "deepeval>=4.3.1",
+    "torch",
+    "transformers",
     "rouge-score>=0.1.2",
+    "sentence-transformers",
+    "numpy",
 ]
 
 [tool.setuptools]

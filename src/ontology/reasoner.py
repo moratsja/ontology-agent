@@ -1,13 +1,12 @@
-# Owlready2's sync_reasoner runs HermiT, so java has to be installed.
+# we had to use some AI coding assistance to get this working.
 import shutil
 from pathlib import Path
 
 import owlready2
-from owlready2 import Not, OwlReadyInconsistentOntologyError, World, sync_reasoner
+from owlready2 import World, sync_reasoner
 
-from src.config import ONTOLOGY_PATH
-
-_BEFORE = "The ontology is inconsistent before the claim is added, so the claim is not classified."
+from src.ontology.loader import load_ontology
+from src.ontology.queries import QUERIES, queries_for
 
 def _java_command():
     found = shutil.which("java")
@@ -21,127 +20,116 @@ def _java_command():
 
 owlready2.JAVA_EXE = _java_command()
 
-def claim_shape(mapping):
-    if not mapping:
-        return None
-    subject = (mapping.get("subject") or {}).get("ontology_entity") or ""
-    prop = (mapping.get("predicate") or {}).get("ontology_property") or ""
-    obj = mapping.get("object") or {}
-    object_entity = obj.get("ontology_entity") or ""
-    object_class = obj.get("ontology_class") or ""
-    if subject and prop and object_entity:
-        return "relation"
-    if subject and object_class and not prop and not object_entity:
-        return "type"
-    return None
+_CACHE = None
 
-def check_mapping(mapping):
-    shape = claim_shape(mapping)
-    if shape is None:
-        return _result(
-            "NOT_VERIFIABLE",
-            None,
-            "This claim is not a class membership or an object property between individuals. It is not verifiable.",
-        )
-    try:
-        if shape == "type":
-            return _check_type(mapping["subject"]["ontology_entity"], mapping["object"]["ontology_class"])
-        return _check_relation(
-            mapping["subject"]["ontology_entity"],
-            mapping["predicate"]["ontology_property"],
-            mapping["object"]["ontology_entity"],
-        )
-    except Exception as exc:
-        return _result("NOT_VERIFIABLE", shape, f"Reasoner error: {type(exc).__name__}: {exc}")
+# grounds the topic into a dictionary of queries and facts
+def ground(topic):
+    reasoned = _reasoned()
+    onto = reasoned["onto"]
+    selected = queries_for(topic)
+    queries = []
+    names = _topic_names(onto, topic)
+    for query in selected:
+        row = reasoned["results"][query.id]
+        queries.append({
+            "id": query.id,
+            "title": query.title,
+            "results": row["results"],
+            "error": row["error"],
+        })
+        names.extend(row["results"])
+    return {
+        "topic": topic,
+        "queries": queries,
+        "facts": _facts(onto, names),
+    }
 
-def _check_type(individual_name, class_name):
-    world, onto = _load_world()
-    if getattr(onto, individual_name, None) is None:
-        return _result("NOT_VERIFIABLE", "type", f"Unknown individual '{individual_name}'. The claim is not verifiable.")
-    if getattr(onto, class_name, None) is None:
-        return _result("NOT_VERIFIABLE", "type", f"Unknown class '{class_name}'. The claim is not verifiable.")
-    ok, problem = _run(world)
-    if problem or not ok:
-        return _result("NOT_VERIFIABLE", "type", problem or _BEFORE)
+# formats the grounding into a string
+def format_grounding(grounding):
+    if not grounding:
+        return ""
+    if isinstance(grounding, str):
+        return grounding
+    lines = []
+    for query in grounding.get("queries") or []:
+        if query.get("error"):
+            lines.append(f"{query['id']} {query['title']}: {query['error']}")
+            continue
+        found = ", ".join(query.get("results") or []) or "none"
+        lines.append(f"{query['id']} {query['title']}: {found}")
+    facts = grounding.get("facts") or []
+    if facts:
+        lines.append("Facts:")
+        lines.extend(facts)
+    return "\n".join(lines)
 
-    world, onto = _load_world()
-    with onto:
-        getattr(onto, individual_name).is_a.append(Not(getattr(onto, class_name)))
-    entailed, problem = _inconsistent(world)
-    if problem:
-        return _result("NOT_VERIFIABLE", "type", problem)
-    if entailed:
-        return _result("SUPPORTED", "type", f"The reasoner finds that {individual_name} type {class_name} follows.")
+# returns a dictionary of query ids and their results
+def query_results():
+    reasoned = _reasoned()
+    return {query_id: set(row["results"]) for query_id, row in reasoned["results"].items()}
 
-    world, onto = _load_world()
-    with onto:
-        getattr(onto, individual_name).is_a.append(getattr(onto, class_name))
-    contradicted, problem = _inconsistent(world)
-    if problem:
-        return _result("NOT_VERIFIABLE", "type", problem)
-    if contradicted:
-        return _result(
-            "CONTRADICTED",
-            "type",
-            f"Adding {individual_name} type {class_name} makes a consistent ontology inconsistent.",
-        )
-    return _result(
-        "NOT_VERIFIABLE",
-        "type",
-        f"The ontology does not entail {individual_name} type {class_name}, and adding it stays consistent.",
-    )
-
-def _check_relation(subject_name, prop_name, object_name):
-    world, onto = _load_world()
-    if getattr(onto, subject_name, None) is None or getattr(onto, object_name, None) is None:
-        missing = subject_name if getattr(onto, subject_name, None) is None else object_name
-        return _result("NOT_VERIFIABLE", "relation", f"Unknown individual '{missing}'. The claim is not verifiable.")
-    prop = getattr(onto, prop_name, None)
-    if prop is None or not isinstance(prop, owlready2.ObjectPropertyClass):
-        return _result("NOT_VERIFIABLE", "relation", f"Unknown object property '{prop_name}'. The claim is not verifiable.")
-    ok, problem = _run(world)
-    if problem or not ok:
-        return _result("NOT_VERIFIABLE", "relation", problem or _BEFORE)
-    if getattr(onto, object_name) in list(getattr(getattr(onto, subject_name), prop_name)):
-        return _result("SUPPORTED", "relation", f"The reasoner finds that {subject_name} {prop_name} {object_name} holds.")
-
-    world, onto = _load_world()
-    with onto:
-        getattr(getattr(onto, subject_name), prop_name).append(getattr(onto, object_name))
-    contradicted, problem = _inconsistent(world)
-    if problem:
-        return _result("NOT_VERIFIABLE", "relation", problem)
-    if contradicted:
-        return _result(
-            "CONTRADICTED",
-            "relation",
-            f"Adding {subject_name} {prop_name} {object_name} makes a consistent ontology inconsistent.",
-        )
-    return _result(
-        "NOT_VERIFIABLE",
-        "relation",
-        f"The ontology does not entail {subject_name} {prop_name} {object_name}. A different pair is not used as evidence.",
-    )
-
-def _load_world():
+def _reasoned():
+    global _CACHE
+    if _CACHE is not None:
+        return _CACHE
     world = World()
-    onto = world.get_ontology(str(ONTOLOGY_PATH)).load()
-    return world, onto
+    onto = load_ontology(world)
+    prepared = _prepare(onto, QUERIES)
+    sync_reasoner(world, infer_property_values=True, debug=0)
+    results = {}
+    for query, cls, problem in prepared:
+        if problem:
+            results[query.id] = {"results": [], "error": problem}
+            continue
+        results[query.id] = {
+            "results": [individual.name for individual in cls.instances()],
+            "error": None,
+        }
+    _CACHE = {"onto": onto, "results": results}
+    return _CACHE
 
-def _run(world):
-    try:
-        sync_reasoner(world, infer_property_values=True, debug=0)
-    except OwlReadyInconsistentOntologyError:
-        return False, None
-    except Exception as exc:
-        return False, f"Reasoner error: {type(exc).__name__}: {exc}"
-    return True, None
+def _prepare(onto, queries):
+    prepared = []
+    for query in queries:
+        try:
+            expression = query.build(onto)
+        except Exception as exc:
+            prepared.append((query, None, str(exc)))
+            continue
+        with onto:
+            cls = type(query.id, (owlready2.Thing,), {"equivalent_to": [expression]})
+        prepared.append((query, cls, None))
+    return prepared
 
-def _inconsistent(world):
-    consistent, problem = _run(world)
-    if problem:
-        return False, problem
-    return (not consistent), None
+def _topic_names(onto, topic):
+    prefix = topic.lower()
+    if not prefix:
+        return []
+    return [individual.name for individual in onto.individuals() if individual.name.lower().startswith(prefix)]
 
-def _result(status, template, message):
-    return {"status": status, "template": template, "message": message}
+def _facts(onto, names):
+    skip = {query.id for query in QUERIES}
+    lines = []
+    seen = set()
+    for name in names:
+        individual = getattr(onto, name, None)
+        if individual is None:
+            continue
+        classes = [
+            cls.name
+            for cls in individual.is_a
+            if getattr(cls, "name", None) and cls.name not in skip and cls.name != "Thing"
+        ]
+        if classes:
+            _add(lines, seen, f"{name} type {', '.join(classes)}")
+        for prop in onto.object_properties():
+            for value in prop[individual]:
+                value_name = getattr(value, "name", None)
+                if value_name:
+                    _add(lines, seen, f"{name} {prop.name} {value_name}")
+    return lines
+
+def _add(lines, seen, line):
+    if line not in seen:
+        seen.add(line)
+        lines.append(line)

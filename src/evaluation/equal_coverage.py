@@ -9,7 +9,7 @@ import numpy as np
 
 NLI_MODEL = "cross-encoder/nli-MiniLM2-L6-H768"
 ENTAILMENT_THRESHOLD = 0.50
-VALID_GROUPS = ("White", "Hisp", "Black")
+VALID_GROUPS = ("White", "Hisp", "AA")
 DEFAULT_BATCH_SIZE = 64
 
 try:

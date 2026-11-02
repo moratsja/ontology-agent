@@ -12,30 +12,31 @@ class OntologyQuery:
 
 
 def _cities_that_are_not_persons(onto):
-    return onto.City & Not(onto.Person)
+    return (onto.City & Not(onto.Person))
 
 def _persons_that_are_not_cities(onto):
-    return onto.Person & Not(onto.City)
+    return (onto.Person & Not(onto.City))
 
 def _capital_cities_in_europe(onto):
-    return onto.CapitalCity & onto.isLocatedIn.value(onto.europe)
+    return (onto.CapitalCity & onto.isLocatedIn.value(onto.europe))
 
 def _events_hosted_in_europe(onto):
-    return onto.Event & onto.isHostedBy.some(onto.isLocatedIn.value(onto.europe))
+    return (onto.Event & onto.isHostedBy.some(onto.isLocatedIn.value(onto.europe)))
 
 def _events_with_traditions(onto):
-    return onto.Event & onto.hasTradition.some(onto.Tradition)
+    return (onto.Event & onto.hasTradition.some(onto.Tradition))
 
 def _religious_events_hosted_in_ethiopia(onto):
-    return onto.ReligiousEvent & onto.isHostedBy.value(onto.ethiopia)
+    return (onto.ReligiousEvent & onto.isHostedBy.value(onto.ethiopia))
+
+def _streaming_services_offering_series(onto):
+    return (onto.StreamingService & onto.offersContent.some(onto.TVSeries))
 
 def _netflix_content(onto):
-    return onto.MediaContent & onto.isOfferedBy.value(onto.netflix)
+    return (onto.MediaContent & onto.isOfferedBy.value(onto.netflix))
 
-def _netflix_romance_content(onto):
-    return onto.MediaContent & onto.isOfferedBy.value(onto.netflix) & onto.hasGenre.value(onto.romance)
-
-
+def _netflix_series_with_episode(onto):
+    return (onto.TVSeries & onto.isOfferedBy.value(onto.netflix) & onto.seriesHasEpisode.some(onto.TVEpisode))
 
 QUERIES = (
     OntologyQuery(
@@ -71,6 +72,30 @@ QUERIES = (
     ),   
 
     OntologyQuery(
+        id="q5",
+        title="Streaming services that offer some TV series",
+        manchester="StreamingService and (offersContent some TVSeries)",
+        topics=("Netflix",),
+        build=_streaming_services_offering_series,
+    ),  
+
+    OntologyQuery(
+        id="q6",
+        title="Content offered by Netflix",
+        manchester="MediaContent and (isOfferedBy value netflix)",
+        topics=("Netflix",),
+        build=_netflix_content,
+    ),
+
+    OntologyQuery(
+        id="q7",
+        title="TV series offered by Netflix with some episode",
+        manchester="TVSeries and (isOfferedBy value netflix) and (seriesHasEpisode some TVEpisode)",
+        topics=("Netflix",),
+        build=_netflix_series_with_episode,
+    ),
+
+    OntologyQuery(
         id="c1",
         title="Events with a tradition",
         manchester="Event and (hasTradition some Tradition)",
@@ -84,20 +109,7 @@ QUERIES = (
         topics=("Christmas",),
         build=_religious_events_hosted_in_ethiopia,
     ),
-    OntologyQuery(
-        id="n1",
-        title="Content offered by Netflix",
-        manchester="MediaContent and (isOfferedBy value netflix)",
-        topics=("Netflix",),
-        build=_netflix_content,
-    ),
-    OntologyQuery(
-        id="n2",
-        title="Netflix content with genre romance",
-        manchester="MediaContent and (isOfferedBy value netflix) and (hasGenre value romance)",
-        topics=("Netflix",),
-        build=_netflix_romance_content,
-    ),
+    
 )
 
 def queries_for(topic):

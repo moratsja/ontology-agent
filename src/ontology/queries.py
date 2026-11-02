@@ -20,9 +20,6 @@ def _persons_that_are_not_cities(onto):
 def _capital_cities_in_europe(onto):
     return (onto.CapitalCity & onto.isLocatedIn.value(onto.europe))
 
-def _events_hosted_in_europe(onto):
-    return (onto.Event & onto.isHostedBy.some(onto.isLocatedIn.value(onto.europe)))
-
 def _events_with_traditions(onto):
     return (onto.Event & onto.hasTradition.some(onto.Tradition))
 
@@ -41,14 +38,6 @@ def _netflix_series_with_episode(onto):
 QUERIES = (
     OntologyQuery(
         id="q1",
-        title="Events hosted in Europe",
-        manchester="Event and (isHostedBy some (isLocatedIn value europe))",
-        topics=("Paris", "Christmas"),
-        build=_events_hosted_in_europe,
-    ),
-
-    OntologyQuery(
-        id="q2",
         title="Cities that are not persons",
         manchester="City and not Person",
         topics=("Paris"),
@@ -56,7 +45,7 @@ QUERIES = (
     ),
 
     OntologyQuery(
-        id="q3",
+        id="q2",
         title="Persons that are not cities",
         manchester="Person and not City",
         topics=("Paris"),
@@ -64,7 +53,7 @@ QUERIES = (
     ),  
 
     OntologyQuery(
-        id="q4",
+        id="q3",
         title="Capital cities in Europe",
         manchester="CapitalCity and (isLocatedIn value europe)",
         topics=("Paris"),
@@ -72,7 +61,7 @@ QUERIES = (
     ),   
 
     OntologyQuery(
-        id="q5",
+        id="q4",
         title="Streaming services that offer some TV series",
         manchester="StreamingService and (offersContent some TVSeries)",
         topics=("Netflix",),
@@ -80,7 +69,7 @@ QUERIES = (
     ),  
 
     OntologyQuery(
-        id="q6",
+        id="q5",
         title="Content offered by Netflix",
         manchester="MediaContent and (isOfferedBy value netflix)",
         topics=("Netflix",),
@@ -88,7 +77,7 @@ QUERIES = (
     ),
 
     OntologyQuery(
-        id="q7",
+        id="q6",
         title="TV series offered by Netflix with some episode",
         manchester="TVSeries and (isOfferedBy value netflix) and (seriesHasEpisode some TVEpisode)",
         topics=("Netflix",),
@@ -96,14 +85,14 @@ QUERIES = (
     ),
 
     OntologyQuery(
-        id="c1",
+        id="q7",
         title="Events with a tradition",
         manchester="Event and (hasTradition some Tradition)",
         topics=("Christmas",),
         build=_events_with_traditions,
     ),
     OntologyQuery(
-        id="c2",
+        id="q8",
         title="Religious events hosted in Ethiopia",
         manchester="ReligiousEvent and (isHostedBy value ethiopia)",
         topics=("Christmas",),

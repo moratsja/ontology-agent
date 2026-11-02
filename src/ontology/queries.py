@@ -17,8 +17,8 @@ def _cities_that_are_not_persons(onto):
 def _persons_that_are_not_cities(onto):
     return onto.Person & Not(onto.City)
 
-def _cities_in_france(onto):
-    return onto.City & onto.isLocatedIn.value(onto.france)
+def _capital_cities_in_europe(onto):
+    return onto.CapitalCity & onto.isLocatedIn.value(onto.europe)
 
 def _events_hosted_in_europe(onto):
     return onto.Event & onto.isHostedBy.some(onto.isLocatedIn.value(onto.europe))
@@ -35,8 +35,7 @@ def _netflix_content(onto):
 def _netflix_romance_content(onto):
     return onto.MediaContent & onto.isOfferedBy.value(onto.netflix) & onto.hasGenre.value(onto.romance)
 
-def _capital_cities(onto):
-    return onto.CapitalCity & onto.isCapitalOf.some(onto.Country)
+
 
 QUERIES = (
     OntologyQuery(
@@ -65,10 +64,10 @@ QUERIES = (
 
     OntologyQuery(
         id="q4",
-        title="Cities in France",
-        manchester="City and (isLocatedIn value france)",
+        title="Capital cities in Europe",
+        manchester="CapitalCity and (isLocatedIn value europe)",
         topics=("Paris"),
-        build=_cities_in_france,
+        build=_capital_cities_in_europe,
     ),   
 
     OntologyQuery(
@@ -98,13 +97,6 @@ QUERIES = (
         manchester="MediaContent and (isOfferedBy value netflix) and (hasGenre value romance)",
         topics=("Netflix",),
         build=_netflix_romance_content,
-    ),
-    OntologyQuery(
-        id="p1",
-        title="Capital cities",
-        manchester="CapitalCity and (isCapitalOf some Country)",
-        topics=("Paris",),
-        build=_capital_cities,
     ),
 )
 

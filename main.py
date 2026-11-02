@@ -103,9 +103,26 @@ def _print_run(run_index, result):
         return
     print(f"revisions: {result.get('revision')}")
     review = result.get("bias_review") or {}
-    print(f"bias review: {review.get('status') or 'not run'}")
-    for issue in review.get("issues") or []:
-        print(f"- [{issue.get('issue_type')}] {issue.get('explanation')}")
+    reviews = review.get("history") or []
+    if not reviews:
+        print(f"bias review: {review.get('status') or 'not run'}")
+        for issue in review.get("issues") or []:
+            print(f"- [{issue.get('issue_type')}] {issue.get('explanation')}")
+        return
+    for review in reviews:
+        revision = review.get("revision")
+        when = "first draft" if not revision else f"after rewrite {revision}"
+        print(f"bias review of summary {revision} ({when}): {review.get('status') or 'not run'}")
+        for issue in review.get("issues") or []:
+            print(f"- [{issue.get('issue_type')}] {issue.get('explanation')}")
+
+
+def _bias_review_for_save(review):
+    review = review or {"issues": []}
+    history = review.get("history")
+    if not history:
+        return review
+    return history
 
 
 def _save_run(folder, label, run_index, result, scores):
@@ -119,7 +136,7 @@ def _save_run(folder, label, run_index, result, scores):
         "summary": result.get("summary") or "",
         "summaries": result.get("summaries") or [],
         "revision": result.get("revision"),
-        "bias_review": result.get("bias_review") or {"issues": []},
+        "bias_review": _bias_review_for_save(result.get("bias_review")),
         "ontology_grounding": result.get("ontology_grounding") or {},
         "evaluation": scores,
     }

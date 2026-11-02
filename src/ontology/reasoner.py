@@ -23,10 +23,14 @@ owlready2.JAVA_EXE = _java_command()
 _CACHE = None
 
 # grounds the topic into a dictionary of queries and facts
-def ground(topic):
+def ground(topic, query_ids=None):
     reasoned = _reasoned()
     onto = reasoned["onto"]
-    selected = queries_for(topic)
+    if query_ids is None:
+        selected = queries_for(topic)
+    else:
+        wanted = {str(query_id) for query_id in query_ids}
+        selected = [query for query in QUERIES if query.id in wanted]
     queries = []
     names = _topic_names(onto, topic)
     for query in selected:

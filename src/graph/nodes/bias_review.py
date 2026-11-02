@@ -25,7 +25,12 @@ Do not rewrite the summary. Do not report the same problem twice.
 def bias_review(state):
     raw = complete(BIAS_SYSTEM_PROMPT, _user_message(state))
     documents = state.get("documents") or []
-    return {"bias_review": _parse(raw, documents)}
+    review = _parse(raw, documents)
+    # Kept inside the existing bias_review dict. revision matches summaries[revision].
+    previous = state.get("bias_review") or {}
+    history = list(previous.get("history") or [])
+    history.append({"revision": state.get("revision") or 0, **review})
+    return {"bias_review": {**review, "history": history}}
 
 # parses the model's response
 def _parse(raw, documents):

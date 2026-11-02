@@ -879,6 +879,19 @@
     
 
 
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#seriesHasEpisode -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#seriesHasEpisode">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#TVSeries"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#TVEpisode"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#hasSeason"/>
+            <rdf:Description rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#hasEpisode"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#spreadsTo -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#spreadsTo">
@@ -1303,6 +1316,7 @@
                 <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Country"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Person"/>
     </owl:Class>
     
 
@@ -2142,30 +2156,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Christmasday -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Christmasday">
-        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#PublicHolidayEvent"/>
-        <hasTradition rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasTreeTradition"/>
-        <hasEventDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-12-25T00:00:00</hasEventDate>
-        <hasEventName>Christmas Day</hasEventName>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasMarketParis -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasMarketParis">
-        <hasEventName>Christmas Market Paris</hasEventName>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Worker -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Worker">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#AdultPerson"/>
-        <worksDuring rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Christmasday"/>
+        <worksDuring rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasDay"/>
         <hasName>Tweeter who worked over Christmas</hasName>
     </owl:NamedIndividual>
     
@@ -2177,6 +2172,17 @@
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Food"/>
         <hasIngredient rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#flour"/>
         <hasName>Bread</hasName>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasDay -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasDay">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#PublicHolidayEvent"/>
+        <hasTradition rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasTreeTradition"/>
+        <hasEventDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2012-12-25T00:00:00</hasEventDate>
+        <hasEventName>Christmas Day</hasEventName>
     </owl:NamedIndividual>
     
 
@@ -2206,10 +2212,27 @@
     
 
 
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#england -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#england">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Country"/>
+        <isLocatedIn rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#europe"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#english -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#english">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Language"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#episode1Spongebob -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#episode1Spongebob">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#TVEpisode"/>
     </owl:NamedIndividual>
     
 
@@ -2239,7 +2262,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#europe">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Continent"/>
-        <hasName>Europe</hasName>
     </owl:NamedIndividual>
     
 
@@ -2269,7 +2291,7 @@
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#france">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Country"/>
         <isLocatedIn rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#europe"/>
-        <recognizesPublicHoliday rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Christmasday"/>
+        <recognizesPublicHoliday rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasDay"/>
     </owl:NamedIndividual>
     
 
@@ -2315,6 +2337,23 @@
     
 
 
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#greysAnatomy -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#greysAnatomy">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#TVSeries"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#hbo -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#hbo">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#StreamingService"/>
+        <offersContent rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#southPark"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#headache -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#headache">
@@ -2331,10 +2370,28 @@
     
 
 
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#hulu -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#hulu">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#StreamingService"/>
+        <offersContent rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#greysAnatomy"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#kind -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#kind">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#CharacterTrait"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#london -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#london">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#CapitalCity"/>
+        <isCapitalOf rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#england"/>
     </owl:NamedIndividual>
     
 
@@ -2372,9 +2429,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#paris">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#CapitalCity"/>
-        <hostsEvent rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#christmasMarketParis"/>
         <isCapitalOf rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#france"/>
-        <isLocatedIn rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#france"/>
     </owl:NamedIndividual>
     
 
@@ -2431,6 +2486,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#season1Spongebob -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#season1Spongebob">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#TVSeason"/>
+        <hasEpisode rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#episode1Spongebob"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#southPark -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#southPark">
@@ -2444,6 +2508,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#spongebob">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#TVSeries"/>
+        <hasSeason rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#season1Spongebob"/>
         <hasName>Spongebob</hasName>
     </owl:NamedIndividual>
     

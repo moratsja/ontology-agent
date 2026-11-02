@@ -24,7 +24,7 @@ def agent_graph():
     builder.add_edge(START, "ontology_grounding")
     builder.add_edge("ontology_grounding", "summarize")
     builder.add_edge("summarize", "bias_review")
-    builder.add_edge("rewrite", "evaluate")
+    builder.add_edge("rewrite", "bias_review")
     builder.add_conditional_edges(
         "bias_review", # the node we just left
         route_after_bias_review, # the function to decide where to go next

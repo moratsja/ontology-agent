@@ -40,7 +40,7 @@ QUERIES = (
         id="q1",
         title="Cities that are not persons",
         manchester="City and not Person",
-        topics=("Paris"),
+        topics=("Paris",),
         build=_cities_that_are_not_persons,
     ),
 
@@ -48,7 +48,7 @@ QUERIES = (
         id="q2",
         title="Persons that are not cities",
         manchester="Person and not City",
-        topics=("Paris"),
+        topics=("Paris",),
         build=_persons_that_are_not_cities,
     ),  
 
@@ -56,7 +56,7 @@ QUERIES = (
         id="q3",
         title="Capital cities in Europe",
         manchester="CapitalCity and (isLocatedIn value europe)",
-        topics=("Paris"),
+        topics=("Paris",),
         build=_capital_cities_in_europe,
     ),   
 

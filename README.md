@@ -1,6 +1,6 @@
 # ontology-agent
 
-Summarises DivSumm tweets about Paris, Christmas, and Netflix. The agent looks up facts in the ontology, writes a 5-sentence summary, and checks that summary for bias. If the check finds issues, the summary is rewritten once. The baseline only writes the summary. Both are scored the same way.
+Summarises DivSumm tweets about Paris, Christmas, and Netflix. The agent looks up facts in the ontology, writes a 5-sentence summary, and checks that summary for bias. If the check finds issues, the summary is rewritten and checked again, up to 3 rewrites. The last check is the one that goes on to scoring. The baseline only writes the summary. Both are scored the same way.
 
 ## Setup
 

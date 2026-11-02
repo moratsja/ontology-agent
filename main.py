@@ -66,13 +66,12 @@ def _run_setting(graph, label, folder, prompts):
                 user_prompt=prompt,
                 topic=topic,
                 prompt_id=prompt_id,
-                mode=label,
             )
             result = graph.invoke(state)
             scores = result.get("evaluation") or {}
             rows.append(scores)
             _print_scores(run_index, scores)
-            _print_run(run_index, result)
+            _print_run(run_index, label, result)
             _save_run(folder, label, run_index, result, scores)
         _save_average(folder, prompt_id, label, _average(rows))
 
@@ -96,10 +95,10 @@ def _print_scores(run_index, scores):
     print(f"  [Cost] {_number(seconds)} seconds")
 
 
-def _print_run(run_index, result):
-    print(f"\n=== run {run_index} ({result['mode']}) ===")
+def _print_run(run_index, label, result):
+    print(f"\n=== run {run_index} ({label}) ===")
     print(result.get("summary") or "")
-    if result["mode"] != "agent":
+    if label != "agent":
         return
     print(f"revisions: {result.get('revision')}")
     review = result.get("bias_review") or {}
@@ -131,7 +130,7 @@ def _save_run(folder, label, run_index, result, scores):
         "topic": result["topic"],
         "prompt_id": result["prompt_id"],
         "user_prompt": result["user_prompt"],
-        "mode": result["mode"],
+        "mode": label,
         "model": OPENAI_MODEL,
         "summary": result.get("summary") or "",
         "summaries": result.get("summaries") or [],

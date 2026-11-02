@@ -1,4 +1,4 @@
-from typing import Annotated, Literal, TypedDict
+from typing import Annotated, TypedDict
 import operator
 
 class AgentState(TypedDict):
@@ -6,7 +6,6 @@ class AgentState(TypedDict):
     documents: list[dict[str, str]]
     user_prompt: str
     prompt_id: str
-    mode: Literal["agent", "baseline"]
     max_revisions: int
     summary: str
     summaries: Annotated[list[str], operator.add]
@@ -15,4 +14,3 @@ class AgentState(TypedDict):
     evaluation: dict
     started: float
     revision: int
-    stop_reason: str

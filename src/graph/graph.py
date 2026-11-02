@@ -48,7 +48,6 @@ def initial_state(
     user_prompt,
     topic,
     prompt_id = "",
-    mode = "agent",
     max_revisions = MAX_REVISIONS, # from config
 ):
     return {
@@ -56,7 +55,6 @@ def initial_state(
         "documents": documents,
         "user_prompt": user_prompt,
         "prompt_id": prompt_id,
-        "mode": mode,
         "max_revisions": max_revisions,
         "summary": "",
         "summaries": [],
@@ -65,5 +63,4 @@ def initial_state(
         "evaluation": {},
         "started": time.time(),
         "revision": 0,
-        "stop_reason": "",
     }

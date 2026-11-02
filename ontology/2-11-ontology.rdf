@@ -2212,6 +2212,15 @@
     
 
 
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#england -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#england">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#Country"/>
+        <isLocatedIn rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#europe"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#english -->
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#english">
@@ -2374,6 +2383,15 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#kind">
         <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#CharacterTrait"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#london -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#london">
+        <rdf:type rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#CapitalCity"/>
+        <isCapitalOf rdf:resource="http://www.semanticweb.org/ewill/ontologies/2026/8/projectOntology#england"/>
     </owl:NamedIndividual>
     
 

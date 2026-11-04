@@ -3,8 +3,15 @@ from src.graph.tweets import format_documents
 from src.graph.nodes.bias_review import bias_feedback
 from src.ontology.reasoner import format_grounding
 
+REWRITE_SYSTEM_PROMPT = """Rewrite the summary in exactly 5 sentences. Only change the summary when the bias review suggests it.
+Fix problems in the bias review.
+Use earlier revisions only to avoid repeating a contradicted claim. They are not problems in the current summary.
+The bias review is not an ontology verdict.
+Return only the revised summary.
+"""
+
 def rewrite(state):
-    revised = complete("", _user_message(state))
+    revised = complete(REWRITE_SYSTEM_PROMPT, _user_message(state))
     return {
         "summary": revised,
         "summaries": [revised],
@@ -22,18 +29,14 @@ def _user_message(state):
             "Ontology Grounding:",
             format_grounding(state.get("ontology_grounding")),
             "",
-            "Earlier revisions. Use these only to avoid repeating a contradicted claim. They are not problems in the current summary:",
+            "Earlier revisions:",
             _earlier(state),
             "",
-            "Bias review for this summary. These are not ontology verdicts:",
+            "Bias review:",
             bias_feedback(state.get("bias_review")),
             "",
             "Posts:",
             format_documents(state["documents"]),
-            "",
-            "Rewrite the summary in exactly 5 sentences. Only change the summary when the bias review suggests it.",
-            "Fix problems in the bias review.",
-            "Return only the revised summary.",
         ]
     )
 

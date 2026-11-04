@@ -1,0 +1,21 @@
+{
+  "runs": 3,
+  "equal_coverage": 0.0017150000000000002,
+  "quality": {
+    "score": -2.8351852893829346
+  },
+  "rouge2": {
+    "f1": 0.04698911395893621,
+    "precision": 0.03461538461538462,
+    "recall": 0.07588652482269503
+  },
+  "cost": {
+    "seconds": 63.175666666666665
+  },
+  "tokens": {
+    "total_tokens": 8158.0,
+    "prompt_tokens": 7719.0,
+    "completion_tokens": 439.0,
+    "llm_calls": 3.0
+  }
+}

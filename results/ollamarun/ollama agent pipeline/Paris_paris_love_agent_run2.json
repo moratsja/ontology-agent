@@ -1,0 +1,407 @@
+{
+  "topic": "Paris",
+  "prompt_id": "paris_love",
+  "user_prompt": "Summarise these tweets about Paris in 5 sentences. I want to know why Americans love to visit Paris.",
+  "mode": "agent",
+  "model": "llama3.1:latest",
+  "summary": "Here is the revised summary in exactly 5 sentences:\n\nMany users expressed their desire to visit Paris, with some mentioning it as a dream destination or a place they would love to escape to. Some users shared their excitement about upcoming trips to Paris, while others reminisced about past visits or experiences in the city. However, not all users had positive sentiments about Paris, with a few expressing disappointment or frustration with the city. The tweets suggest that Paris is a popular and desirable destination for many people, but the reasons for this appeal are not explicitly stated. Some users mentioned romantic getaways, cultural experiences, and the city's charm, but these claims are not supported by the tweets and should be taken as unsubstantiated generalizations.",
+  "summaries": [
+    "Here is a summary of the tweets about Paris in 5 sentences:\n\nMany users expressed their desire to visit Paris, with some mentioning it as a dream destination or a place they would love to escape to. Some users shared their excitement about upcoming trips to Paris, while others reminisced about past visits or experiences in the city. Paris was also mentioned as a romantic getaway, with some users joking about wanting to take their significant others on a date to the city. However, not all users had positive sentiments about Paris, with a few expressing disappointment or frustration with the city. Overall, the tweets suggest that Paris is a popular and desirable destination for many people, particularly Americans, who seem to be drawn to its romantic and cultural appeal.",
+    "Here is the revised summary in exactly 5 sentences:\n\nMany users expressed their desire to visit Paris, with some mentioning it as a dream destination or a place they would love to escape to. Some users shared their excitement about upcoming trips to Paris, while others reminisced about past visits or experiences in the city. However, not all users had positive sentiments about Paris, with a few expressing disappointment or frustration with the city. The tweets suggest that Paris is a popular and desirable destination for many people, but the reasons for this appeal are not explicitly stated. Some users mentioned romantic getaways, cultural experiences, and the city's charm, but these claims are not supported by the tweets and should be taken as unsubstantiated generalizations."
+  ],
+  "revision": 1,
+  "bias_review": {
+    "status": "failed",
+    "issues": [],
+    "response": "{\n  \"issues\": [\n    {\n      \"issue_type\": \"one_sided_representation\",\n      \"explanation\": \"The summary only mentions positive sentiments about Paris, but it leaves out the negative sentiments expressed by some users.\",\n      \"evidence_tweet_ids\": [34, 35, 39, 40, 43, 49, 54, 59, 61, 63, 64, 68, 73, 74, 79, 80, 85, 90],\n      \"suggested_correction\": \"The summary should include both positive and negative sentiments about Paris to provide a more balanced view.\"\n    },\n    {\n      \"issue_type\": \"unsupported_generalization\",\n      \"explanation\": \"The summary states that Paris is a popular and desirable destination for many people, but it does not provide evidence to support this claim.\",\n      \"evidence_tweet_ids\": [1, 4, 10, 12, 16, 20, 22, 24, 26, 27, 30, 32, 38, 41, 45, 52, 55, 57, 65, 66, 71, 72, 77, 81, 83, 86],\n      \"suggested_correction\": \"The summary should provide evidence to support the claim that Paris is a popular and desirable destination, such as citing specific tweets that mention the city's charm or attractions.\"\n    },\n    {\n      \"issue_type\": \"prompt_framing_bias\",\n      \"explanation\": \"The user request assumes that the tweets are about why Americans love to visit Paris, but the tweets do not explicitly state this. The summary should not assume this interpretation.\",\n      \"evidence_tweet_ids\": [none],\n      \"suggested_correction\": \"The summary should not assume a specific interpretation of the tweets, but rather provide a neutral summary of the content.\"\n    }\n  ]\n}",
+    "history": [
+      {
+        "revision": 0,
+        "status": "ok",
+        "issues": [
+          {
+            "issue_type": "one_sided_representation",
+            "explanation": "The summary only mentions the positive sentiments about Paris, but omits the negative sentiments expressed by some users.",
+            "evidence_tweet_ids": [
+              "34",
+              "35",
+              "40",
+              "43",
+              "63"
+            ],
+            "suggested_correction": "The summary should include both the positive and negative sentiments about Paris to provide a more balanced view."
+          },
+          {
+            "issue_type": "unsupported_generalization",
+            "explanation": "The summary states that Americans are drawn to Paris's romantic and cultural appeal, but this is not supported by the tweets.",
+            "evidence_tweet_ids": [
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31",
+              "32",
+              "33",
+              "34",
+              "35",
+              "36",
+              "37",
+              "38",
+              "39",
+              "40",
+              "41",
+              "42",
+              "43",
+              "44",
+              "45",
+              "46",
+              "47",
+              "48",
+              "49",
+              "50",
+              "51",
+              "52",
+              "53",
+              "54",
+              "55",
+              "56",
+              "57",
+              "58",
+              "59",
+              "60",
+              "61",
+              "62",
+              "63",
+              "64",
+              "65",
+              "66",
+              "67",
+              "68",
+              "69",
+              "70",
+              "71",
+              "72",
+              "73",
+              "74",
+              "75",
+              "76",
+              "77",
+              "78",
+              "79",
+              "80",
+              "81",
+              "82",
+              "83",
+              "84",
+              "85",
+              "86",
+              "87",
+              "88",
+              "89",
+              "90"
+            ],
+            "suggested_correction": "The summary should be more specific about what aspects of Paris's romantic and cultural appeal are appealing to Americans, and provide evidence from the tweets to support this claim."
+          },
+          {
+            "issue_type": "prompt_framing_bias",
+            "explanation": "The user request assumes that Americans love to visit Paris, but this is not explicitly stated in the tweets.",
+            "evidence_tweet_ids": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12",
+              "13",
+              "14",
+              "15",
+              "16",
+              "17",
+              "18",
+              "19",
+              "20",
+              "21",
+              "22",
+              "23",
+              "24",
+              "25",
+              "26",
+              "27",
+              "28",
+              "29",
+              "30",
+              "31",
+              "32",
+              "33",
+              "34",
+              "35",
+              "36",
+              "37",
+              "38",
+              "39",
+              "40",
+              "41",
+              "42",
+              "43",
+              "44",
+              "45",
+              "46",
+              "47",
+              "48",
+              "49",
+              "50",
+              "51",
+              "52",
+              "53",
+              "54",
+              "55",
+              "56",
+              "57",
+              "58",
+              "59",
+              "60",
+              "61",
+              "62",
+              "63",
+              "64",
+              "65",
+              "66",
+              "67",
+              "68",
+              "69",
+              "70",
+              "71",
+              "72",
+              "73",
+              "74",
+              "75",
+              "76",
+              "77",
+              "78",
+              "79",
+              "80",
+              "81",
+              "82",
+              "83",
+              "84",
+              "85",
+              "86",
+              "87",
+              "88",
+              "89",
+              "90"
+            ],
+            "suggested_correction": "The summary should not assume that Americans love to visit Paris, but rather present the evidence from the tweets to support this claim."
+          }
+        ]
+      },
+      {
+        "revision": 1,
+        "status": "failed",
+        "issues": [],
+        "response": "{\n  \"issues\": [\n    {\n      \"issue_type\": \"one_sided_representation\",\n      \"explanation\": \"The summary only mentions positive sentiments about Paris, but it leaves out the negative sentiments expressed by some users.\",\n      \"evidence_tweet_ids\": [34, 35, 39, 40, 43, 49, 54, 59, 61, 63, 64, 68, 73, 74, 79, 80, 85, 90],\n      \"suggested_correction\": \"The summary should include both positive and negative sentiments about Paris to provide a more balanced view.\"\n    },\n    {\n      \"issue_type\": \"unsupported_generalization\",\n      \"explanation\": \"The summary states that Paris is a popular and desirable destination for many people, but it does not provide evidence to support this claim.\",\n      \"evidence_tweet_ids\": [1, 4, 10, 12, 16, 20, 22, 24, 26, 27, 30, 32, 38, 41, 45, 52, 55, 57, 65, 66, 71, 72, 77, 81, 83, 86],\n      \"suggested_correction\": \"The summary should provide evidence to support the claim that Paris is a popular and desirable destination, such as citing specific tweets that mention the city's charm or attractions.\"\n    },\n    {\n      \"issue_type\": \"prompt_framing_bias\",\n      \"explanation\": \"The user request assumes that the tweets are about why Americans love to visit Paris, but the tweets do not explicitly state this. The summary should not assume this interpretation.\",\n      \"evidence_tweet_ids\": [none],\n      \"suggested_correction\": \"The summary should not assume a specific interpretation of the tweets, but rather provide a neutral summary of the content.\"\n    }\n  ]\n}"
+      }
+    ]
+  },
+  "ontology_grounding": {
+    "topic": "Paris",
+    "queries": [
+      {
+        "id": "q1",
+        "title": "Cities that are not persons",
+        "results": [
+          "london",
+          "paris"
+        ],
+        "error": null
+      },
+      {
+        "id": "q2",
+        "title": "Persons that are not cities",
+        "results": [
+          "Worker",
+          "eva",
+          "parisHilton"
+        ],
+        "error": null
+      },
+      {
+        "id": "q3",
+        "title": "Capital cities in Europe",
+        "results": [
+          "london",
+          "paris"
+        ],
+        "error": null
+      },
+      {
+        "id": "q4",
+        "title": "Streaming services that offer some TV series",
+        "results": [
+          "hbo",
+          "hulu",
+          "netflix"
+        ],
+        "error": null
+      },
+      {
+        "id": "q5",
+        "title": "Content offered by Netflix",
+        "results": [
+          "gilmoreGirls",
+          "gossipGirl",
+          "southPark",
+          "theNotebook",
+          "spongebob"
+        ],
+        "error": null
+      },
+      {
+        "id": "q6",
+        "title": "TV series offered by Netflix with some episode",
+        "results": [
+          "spongebob"
+        ],
+        "error": null
+      },
+      {
+        "id": "q7",
+        "title": "Events with a tradition",
+        "results": [
+          "christmasDay"
+        ],
+        "error": null
+      },
+      {
+        "id": "q8",
+        "title": "Religious events hosted in Ethiopia",
+        "results": [
+          "ethiopianChristmas"
+        ],
+        "error": null
+      }
+    ],
+    "facts": [
+      "paris type CapitalCity",
+      "paris isCapitalOf france",
+      "paris isLocatedIn europe",
+      "parisGeller type FictionalCharacter",
+      "parisGeller appearsIn gilmoreGirls",
+      "parisHilton type AdultPerson",
+      "london type CapitalCity",
+      "london isCapitalOf england",
+      "london isLocatedIn europe",
+      "Worker type AdultPerson",
+      "Worker worksDuring christmasDay",
+      "eva type AdultPerson, ReservedPerson",
+      "eva cannotEat bread",
+      "eva hasAllergy flour",
+      "eva hasBehaviour nonTalkative",
+      "eva hasCharacterTrait reserved",
+      "hbo type StreamingService",
+      "hbo offersContent southPark",
+      "hulu type StreamingService",
+      "hulu offersContent greysAnatomy",
+      "netflix offersContent gilmoreGirls",
+      "netflix offersContent gossipGirl",
+      "netflix offersContent southPark",
+      "netflix offersContent spongebob",
+      "netflix offersContent theNotebook",
+      "gilmoreGirls type TVSeries",
+      "gilmoreGirls isOfferedBy netflix",
+      "gossipGirl type TVSeries",
+      "gossipGirl isOfferedBy netflix",
+      "southPark type TVSeries",
+      "southPark isOfferedBy hbo",
+      "southPark isOfferedBy netflix",
+      "theNotebook type Film",
+      "theNotebook hasGenre romance",
+      "theNotebook isOfferedBy netflix",
+      "spongebob type TVSeries",
+      "spongebob hasSeason season1Spongebob",
+      "spongebob isOfferedBy netflix",
+      "spongebob seriesHasEpisode episode1Spongebob",
+      "christmasDay type PublicHolidayEvent",
+      "christmasDay hasTradition christmasTreeTradition",
+      "christmasDay isRecognizedBy france",
+      "ethiopianChristmas type ReligiousEvent",
+      "ethiopianChristmas isHostedBy ethiopia",
+      "ethiopianChristmas isRecognizedBy ethiopia"
+    ],
+    "selected_query_ids": [
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "q5",
+      "q6",
+      "q7",
+      "q8"
+    ]
+  },
+  "evaluation": {
+    "equal_coverage": {
+      "ec_score": 0.000159,
+      "overall_coverage_prob": 0.004784,
+      "per_group_coverage": {
+        "White": 0.004679,
+        "Hisp": 0.00465,
+        "AA": 0.005024
+      },
+      "group_counts": {
+        "White": 30,
+        "Hisp": 30,
+        "AA": 30
+      },
+      "n_documents": 90,
+      "n_summary_sentences": 5,
+      "n_nli_pairs": 450,
+      "entailment_threshold": 0.001,
+      "nli_model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "method": "assignment_adapted_nli_equal_coverage",
+      "input_document_count": 90,
+      "excluded_empty_document_count": 0
+    },
+    "quality": {
+      "score": -3.2016128301620483
+    },
+    "rouge2": {
+      "f1": 0.04988372093023256,
+      "precision": 0.036000000000000004,
+      "recall": 0.08382978723404255,
+      "n_references": 2
+    },
+    "cost": {
+      "seconds": 116.309
+    },
+    "tokens": {
+      "total_tokens": 13889,
+      "prompt_tokens": 12290,
+      "completion_tokens": 1599,
+      "llm_calls": 5
+    }
+  }
+}

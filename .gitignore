@@ -11,8 +11,9 @@ __pycache__/
 # downloaded NLI weights
 models/
 
-# local evaluation output
-results/
+# local evaluation output (except for ollamarun results)
+results/*
+!results/ollamarun/
 
 # packaging
 build/

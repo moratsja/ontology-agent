@@ -1,0 +1,91 @@
+{
+  "topic": "Paris",
+  "prompt_id": "paris_love",
+  "user_prompt": "Summarise these tweets about Paris in 5 sentences. I want to know why Americans love to visit Paris.",
+  "mode": "baseline",
+  "model": "llama3.1:latest",
+  "summary": "Here is the revised summary in exactly 5 sentences:\n\nThe tweets reveal that many people, particularly Americans, have a strong fascination with Paris, with some expressing a desire to visit or live there. Some tweets mention the romanticism of Paris, with one person saying they would love to take their partner to Paris for a date. However, not everyone is enamored with Paris, with one person saying they don't think it's as great as everyone makes it out to be. Others mention the city's beauty, with one person sharing a picture of Paris and another person reminiscing about a trip to Paris. Overall, the tweets suggest that Paris is a city that evokes strong emotions and desires in people, with both positive and negative opinions about the city.",
+  "summaries": [
+    "Here is a 5-sentence summary of the tweets about Paris:\n\nThe tweets reveal that many people, particularly Americans, have a strong fascination with Paris, with some expressing a desire to visit or live there. Some tweets mention the romanticism of Paris, with one person saying they would love to take their partner to Paris for a date. Others mention the city's beauty, with one person sharing a picture of Paris and another person reminiscing about a trip to Paris. However, not everyone is enamored with Paris, with one person saying they don't think it's as great as everyone makes it out to be. Overall, the tweets suggest that Paris is a city that evokes strong emotions and desires in people, with many seeing it as a dream destination.",
+    "Here is the revised summary in exactly 5 sentences:\n\nThe tweets reveal that many people, particularly Americans, have a strong fascination with Paris, with some expressing a desire to visit or live there. Some tweets mention the romanticism of Paris, with one person saying they would love to take their partner to Paris for a date. However, not everyone is enamored with Paris, with one person saying they don't think it's as great as everyone makes it out to be. Others mention the city's beauty, with one person sharing a picture of Paris and another person reminiscing about a trip to Paris. Overall, the tweets suggest that Paris is a city that evokes strong emotions and desires in people, with both positive and negative opinions about the city."
+  ],
+  "revision": 1,
+  "bias_review": {
+    "status": "ok",
+    "issues": [
+      {
+        "issue_type": "one_sided_representation",
+        "explanation": "The summary only mentions the positive aspects of Paris, such as its romanticism and beauty, but does not mention the negative comments about Paris.",
+        "evidence_tweet_ids": [
+          "34",
+          "40",
+          "43",
+          "63"
+        ],
+        "suggested_correction": "The summary should also mention the negative comments about Paris, such as tweet 34, which states that Paris is not as great as everyone makes it out to be, and tweet 40, which suggests that Paris is not a desirable destination."
+      }
+    ],
+    "history": [
+      {
+        "revision": 0,
+        "status": "ok",
+        "issues": [
+          {
+            "issue_type": "one_sided_representation",
+            "explanation": "The summary only mentions the positive aspects of Paris, such as its romanticism and beauty, but does not mention the negative comments about Paris.",
+            "evidence_tweet_ids": [
+              "34",
+              "40",
+              "43",
+              "63"
+            ],
+            "suggested_correction": "The summary should also mention the negative comments about Paris, such as tweet 34, which states that Paris is not as great as everyone makes it out to be, and tweet 40, which suggests that Paris is not a desirable destination."
+          }
+        ]
+      }
+    ]
+  },
+  "ontology_grounding": {},
+  "evaluation": {
+    "equal_coverage": {
+      "ec_score": 0.001715,
+      "overall_coverage_prob": 0.007345,
+      "per_group_coverage": {
+        "White": 0.005359,
+        "Hisp": 0.006759,
+        "AA": 0.009918
+      },
+      "group_counts": {
+        "White": 30,
+        "Hisp": 30,
+        "AA": 30
+      },
+      "n_documents": 90,
+      "n_summary_sentences": 5,
+      "n_nli_pairs": 450,
+      "entailment_threshold": 0.001,
+      "nli_model": "cross-encoder/nli-MiniLM2-L6-H768",
+      "method": "assignment_adapted_nli_equal_coverage",
+      "input_document_count": 90,
+      "excluded_empty_document_count": 0
+    },
+    "quality": {
+      "score": -2.8351852893829346
+    },
+    "rouge2": {
+      "f1": 0.04698911395893621,
+      "precision": 0.03461538461538462,
+      "recall": 0.07588652482269503,
+      "n_references": 2
+    },
+    "cost": {
+      "seconds": 107.095
+    },
+    "tokens": {
+      "total_tokens": 8158,
+      "prompt_tokens": 7719,
+      "completion_tokens": 439,
+      "llm_calls": 3
+    }
+  }
+}

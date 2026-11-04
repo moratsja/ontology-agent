@@ -5,7 +5,7 @@ from rouge_score import rouge_scorer
 from src.config import ROOT
 from src.evaluation.equal_coverage import equal_coverage
 
-REFERENCES = ROOT / "data" / "raw" / "divsumm"
+REFERENCES = ROOT / "data" / "divsumm"
 
 _rouge = rouge_scorer.RougeScorer(["rouge2"], use_stemmer=True)
 _bart = None

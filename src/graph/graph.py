@@ -37,9 +37,19 @@ def agent_graph():
 def baseline_graph():
     builder = StateGraph(AgentState)
     builder.add_node("summarize", summarize)
+    builder.add_node("bias_review", bias_review)
+    builder.add_node("rewrite", rewrite)
     builder.add_node("evaluate", evaluate)
+    
     builder.add_edge(START, "summarize")
-    builder.add_edge("summarize", "evaluate")
+    builder.add_edge("summarize", "bias_review")
+    builder.add_edge("bias_review", "rewrite")
+    builder.add_edge("rewrite", "evaluate")
+    builder.add_conditional_edges(
+        "bias_review",
+        route_after_bias_review,
+        {"rewrite": "rewrite", "evaluate": "evaluate"},
+    )
     builder.add_edge("evaluate", END)
     return builder.compile()
 

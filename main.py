@@ -2,9 +2,11 @@ import argparse
 import csv
 import html
 import json
+from langchain_community.callbacks import get_openai_callback
 
 from src.config import EVAL_RUNS, GROUPS, INPUTS, ONTOLOGY_PATH, OPENAI_MODEL, PROMPTS, RESULTS
 from src.graph.graph import agent_graph, baseline_graph, initial_state
+
 
 
 def main():
@@ -66,12 +68,24 @@ def _run_setting(graph, label, folder, prompts):
                 user_prompt=prompt,
                 topic=topic,
                 prompt_id=prompt_id,
+                mode=label,
             )
-            result = graph.invoke(state)
+            
+            # Track tokens across all LLM calls in this run
+            with get_openai_callback() as cb:
+                result = graph.invoke(state)
+
             scores = result.get("evaluation") or {}
+
+            scores["tokens"] = {
+                "total_tokens": cb.total_tokens,
+                "prompt_tokens": cb.prompt_tokens,
+                "completion_tokens": cb.completion_tokens,
+            }
+
             rows.append(scores)
             _print_scores(run_index, scores)
-            _print_run(run_index, label, result)
+            _print_run(run_index, result)
             _save_run(folder, label, run_index, result, scores)
         _save_average(folder, prompt_id, label, _average(rows))
 
@@ -81,6 +95,8 @@ def _print_scores(run_index, scores):
     quality = (scores.get("quality") or {}).get("score")
     rouge = scores.get("rouge2")
     seconds = (scores.get("cost") or {}).get("seconds")
+    tokens = scores.get("tokens") or {}
+    
     print(f"\n[Run {run_index}]")
     print(f"  [Metric 1 - Equal Coverage] {_number(coverage)}")
     print(f"  [Metric 2 - BARTScore] {_number(quality)} (closer to zero is better)")
@@ -93,35 +109,19 @@ def _print_scores(run_index, scores):
             f"{rouge.get('n_references')} references)"
         )
     print(f"  [Cost] {_number(seconds)} seconds")
+    print(f"  [Tokens] Total: {tokens.get('total_tokens', 0)} (Prompt: {tokens.get('prompt_tokens', 0)}, Completion: {tokens.get('completion_tokens', 0)})")
 
 
-def _print_run(run_index, label, result):
-    print(f"\n=== run {run_index} ({label}) ===")
+def _print_run(run_index, result):
+    print(f"\n=== run {run_index} ({result['mode']}) ===")
     print(result.get("summary") or "")
-    if label != "agent":
+    if result["mode"] != "agent":
         return
     print(f"revisions: {result.get('revision')}")
     review = result.get("bias_review") or {}
-    reviews = review.get("history") or []
-    if not reviews:
-        print(f"bias review: {review.get('status') or 'not run'}")
-        for issue in review.get("issues") or []:
-            print(f"- [{issue.get('issue_type')}] {issue.get('explanation')}")
-        return
-    for review in reviews:
-        revision = review.get("revision")
-        when = "first draft" if not revision else f"after rewrite {revision}"
-        print(f"bias review of summary {revision} ({when}): {review.get('status') or 'not run'}")
-        for issue in review.get("issues") or []:
-            print(f"- [{issue.get('issue_type')}] {issue.get('explanation')}")
-
-
-def _bias_review_for_save(review):
-    review = review or {"issues": []}
-    history = review.get("history")
-    if not history:
-        return review
-    return history
+    print(f"bias review: {review.get('status') or 'not run'}")
+    for issue in review.get("issues") or []:
+        print(f"- [{issue.get('issue_type')}] {issue.get('explanation')}")
 
 
 def _save_run(folder, label, run_index, result, scores):
@@ -130,12 +130,12 @@ def _save_run(folder, label, run_index, result, scores):
         "topic": result["topic"],
         "prompt_id": result["prompt_id"],
         "user_prompt": result["user_prompt"],
-        "mode": label,
+        "mode": result["mode"],
         "model": OPENAI_MODEL,
         "summary": result.get("summary") or "",
         "summaries": result.get("summaries") or [],
         "revision": result.get("revision"),
-        "bias_review": _bias_review_for_save(result.get("bias_review")),
+        "bias_review": result.get("bias_review") or {"issues": []},
         "ontology_grounding": result.get("ontology_grounding") or {},
         "evaluation": scores,
     }
@@ -146,11 +146,15 @@ def _save_run(folder, label, run_index, result, scores):
 def _save_average(folder, prompt_id, label, average):
     quality = average["quality"]["score"]
     rouge = average["rouge2"]["f1"]
+    tokens_avg = average.get("tokens") or {}
+    
     print(f"\n=== average over {average['runs']} runs ({prompt_id}, {label}) ===")
     print(f"  [Metric 1 - Equal Coverage] {_number(average['equal_coverage'])}")
     print(f"  [Metric 2 - BARTScore] {_number(quality)} (closer to zero is better)")
     print(f"  [Metric 3 - ROUGE-2 F1] {_number(rouge)}")
     print(f"  [Cost] {_number(average['cost']['seconds'])} seconds")
+    print(f"  [Tokens] Total: {_number(tokens_avg.get('total_tokens'))} (Prompt: {_number(tokens_avg.get('prompt_tokens'))}, Completion: {_number(tokens_avg.get('completion_tokens'))})")
+    
     destination = folder / label / f"{prompt_id}_{label}_average.json"
     destination.write_text(json.dumps(average, indent=2), encoding="utf-8")
     print(f"saved {destination}")
@@ -174,6 +178,11 @@ def _average(rows):
             "recall": mean([None if row is None else row.get("recall") for row in rouge_rows]),
         },
         "cost": {"seconds": mean([(row.get("cost") or {}).get("seconds") for row in rows])},
+        "tokens": {
+            "total_tokens": mean([(row.get("tokens") or {}).get("total_tokens") for row in rows]),
+            "prompt_tokens": mean([(row.get("tokens") or {}).get("prompt_tokens") for row in rows]),
+            "completion_tokens": mean([(row.get("tokens") or {}).get("completion_tokens") for row in rows]),
+        },
     }
 
 

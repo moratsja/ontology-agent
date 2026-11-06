@@ -1,6 +1,6 @@
 # ontology-agent
 
-Summarises DivSumm tweets about Paris, Christmas, and Netflix. The agent looks up facts in the ontology, writes a 5-sentence summary, and checks that summary for bias. If the check finds issues, the summary is rewritten and checked again, up to 3 rewrites. The last check is the one that goes on to scoring. The baseline only writes the summary. Both are scored the same way.
+Summarises DivSumm tweets about Paris, Christmas, and Netflix. The agent looks up facts in the ontology, writes a 5-sentence summary, and checks that summary for bias. If the check finds issues, the summary is rewritten and checked again, up to 3 rewrites. The last check is the one that goes on to scoring. The baseline writes the summary without grounding information from the ontology, but with the bias review. Both are scored the same way.
 
 ## Setup
 
@@ -15,7 +15,7 @@ Put `OPENAI_API_KEY` in `.env`.
 
 The ontology is `ontology/ontology.rdf`. The reasoner needs Java. If `java` is not on PATH, the code looks for `java.exe` under `C:\Program Files\Eclipse Adoptium`.
 
-The NLI model used for equal coverage, and the BARTScore model, are downloaded the first time you run an evaluation. They are not in the repo.
+The NLI model used for equal coverage and the BARTScore model are downloaded the first time you run an evaluation. They are not in the repo.
 
 ## Run
 
@@ -42,4 +42,9 @@ The scores in those files are:
 - Equal coverage across the White, Hisp, and AA tweets. Lower means the groups are closer to each other.
 - BARTScore (`facebook/bart-large-cnn`): how likely the summary is given the tweets. Closer to zero is better.
 - ROUGE-2 F1: mean overlap with the abstractive annotator summaries for that topic.
-- Cost: seconds for that run.
+- Cost (time): seconds the run took, from start to evaluation.
+- Cost (tokens): total tokens summed over all LLM calls in the run, split into input and output tokens (prompt and completion). These are counted for the whole run, including the ontology lookup, every summary, every bias check and every rewrite. The agent therefore uses more tokens than the baseline.
+
+## Included model results (GPT-4o and Ollama)
+
+

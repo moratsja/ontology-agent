@@ -51,5 +51,6 @@ This is because the Ollama results were produced seperately. Only the output fil
 The local Ollama results are in `results/ollamarun/`:
 - `ollama agent pipeline/`: agent runs
 - `ollama baseline/`: baseline runs
+  
 Each folder contains 3 runs and an average file of those 3 runs, covering only the `paris_love` prompt. The same evaluation metrics are used as with the GPT-4o.
 For the exact results of the GPT-4o and Ollama model, please check our final report. It lists the values of all evaluation metrics for every run and prompt, and explains the differences between the models and between the agent vs. baseline runs.

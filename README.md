@@ -45,6 +45,11 @@ The scores in those files are:
 - Cost (time): seconds the run took, from start to evaluation.
 - Cost (tokens): total tokens summed over all LLM calls in the run, split into input and output tokens (prompt and completion). These are counted for the whole run, including the ontology lookup, every summary, every bias check and every rewrite. The agent therefore uses more tokens than the baseline.
 
-## Included model results (GPT-4o and Ollama)
-
-
+## Model results (GPT-4o and Ollama) and report
+The code was run using the GPT-4o model from OpenAI. `src/llm/model.py` uses `ChatOpenAI`, and `main.py` has no Ollama option or config.
+This is because the Ollama results were produced seperately. Only the output files were added to the repo for comparison purposes against GPT-4o.
+The local Ollama results are in `results/ollamarun/`:
+- `ollama agent pipeline/`: agent runs
+- `ollama baseline/`: baseline runs
+Each folder contains 3 runs and an average file of those 3 runs, covering only the `paris_love` prompt. The same evaluation metrics are used as with the GPT-4o.
+For the exact results of the GPT-4o and Ollama model, please check our final report. It lists the values of all evaluation metrics for every run and prompt, and explains the differences between the models and between the agent vs. baseline runs.
